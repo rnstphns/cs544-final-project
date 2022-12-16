@@ -11,15 +11,15 @@
 	<groupId>edu.miu.compro.cs544</groupId>
 	<artifactId>CS544-Final-Project-Group8</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CS544-Final-Project-Group8-Login</name>
+	<name>CS544-Final-Project-Group8</name>
 	<description>Login module for Course Registration Application for Enterprise Architecture</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<modules>
-		<module>CS544-Final-Project-Group8</module>
-		<module>CS544-Final-Project-Group8-Email-Service</module>
-		<module>CS544-Final-Project-Group8-Login</module>
+		<module>backend</module>
+		<module>email</module>
+		<module>login</module>
 	</modules>
 	<dependencies>
 		<dependency>
