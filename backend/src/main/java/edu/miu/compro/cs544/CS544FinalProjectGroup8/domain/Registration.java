@@ -15,6 +15,6 @@ public class Registration {
     private Long id;
     @OneToOne
     private Student student;
-    @OneToMany//TODO extras maybe?
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<CourseOffering> courseList;
 }

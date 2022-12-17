@@ -19,10 +19,10 @@ public class CourseOffering {
     private AcademicBlock academicBlock;
     @OneToOne
     private Course course;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Collection<Faculty> faculty;
     private Integer availableSeats;
     private Integer capacity;
-    @ManyToOne //TODO extras maybe?
+    @ManyToOne(cascade = CascadeType.ALL)
     private RegistrationRequest registrationRequest;
 }

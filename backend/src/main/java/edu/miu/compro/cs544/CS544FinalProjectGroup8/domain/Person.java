@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Person {
+public abstract class Person {
+
     @Id
     @GeneratedValue(strategy=GenerationType.TABLE)
     private Long id;

@@ -13,8 +13,8 @@ public class RegistrationGroup {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<Student> students;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private Collection<CourseOffering> courses;
 }

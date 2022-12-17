@@ -13,6 +13,8 @@ public class RegistrationRequest {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Student student;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<CourseOffering> courseList;
 }
