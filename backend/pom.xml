@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.miu.compro.cs544</groupId>
-	<artifactId>CS544-Final-Project-Group8</artifactId>
+	<artifactId>CS544-Final-Project-Group8-Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CS544-Final-Project-Group8</name>
+	<name>CS544-Final-Project-Group8-Backend</name>
 	<description>Course Registration Application for Enterprise Architecture</description>
 	<properties>
 		<java.version>11</java.version>
