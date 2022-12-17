@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CS544-Final-Project-Group8</name>
 	<description>Login module for Course Registration Application for Enterprise Architecture</description>
+	<packaging>pom</packaging>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
