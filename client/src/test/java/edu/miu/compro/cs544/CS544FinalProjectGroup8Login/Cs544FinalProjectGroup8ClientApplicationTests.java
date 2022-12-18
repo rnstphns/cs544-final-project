@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Cs544FinalProjectGroup8LoginApplicationTests {
+class Cs544FinalProjectGroup8ClientApplicationTests {
 
 	@Test
 	void contextLoads() {

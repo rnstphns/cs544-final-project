@@ -1,19 +1,14 @@
-package edu.miu.compro.cs544.CS544FinalProjectGroup8Login.client;
+package edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client;
 
 
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Login.model.Registration;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Login.model.RegistrationEvent;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Login.model.RegistrationEvents;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Login.model.RegistrationRequest;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvent;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvents;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collection;
 import java.util.Random;
 
 @Component
@@ -26,9 +21,9 @@ public class RegistrationGateway {
 
 //    GET /registration-events/latest
     //TODO be sure this calls the student filtered method
-    public Collection<RegistrationEvent> getRegistrationEvents(){
+    public RegistrationEvents getRegistrationEvents(){
         RegistrationEvents registrationEvents = restTemplate.getForObject(backendUrl+"/registration-events/latest", RegistrationEvents.class);
-        return registrationEvents.getRegistrationEventCollection();
+        return registrationEvents;
     }
 //    POST /registration-events/latest -- List<RegistrationRequest> in body
     public RegistrationRequest registerStudent(@RequestBody RegistrationRequest registrationRequest){
@@ -36,9 +31,9 @@ public class RegistrationGateway {
     }
 //    GET /registrations/{studentId}
     //TODO be sure this calls a method to find registration by studentid
-    public Collection<Registration> getRegistrationsByStudent(Integer studentId){
+    public Registrations getRegistrationsByStudent(Integer studentId){
         Registrations registrations = restTemplate.getForObject(backendUrl+"/registrations/{studentId}", Registrations.class);
-        return registrations.getRegistrations();
+        return registrations;
     }
 
 //    sysadmin access:
