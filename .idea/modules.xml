@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/backend/CS544-Final-Project-Group8.iml" filepath="$PROJECT_DIR$/backend/CS544-Final-Project-Group8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/CS544-Final-Project-Group8-Backend.iml" filepath="$PROJECT_DIR$/backend/CS544-Final-Project-Group8-Backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/email/CS544-Final-Project-Group8-Email-Service.iml" filepath="$PROJECT_DIR$/email/CS544-Final-Project-Group8-Email-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/client/CS544-Final-Project-Group8-Login.iml" filepath="$PROJECT_DIR$/client/CS544-Final-Project-Group8-Login.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/cs544-final-project.iml" filepath="$PROJECT_DIR$/.idea/cs544-final-project.iml" />

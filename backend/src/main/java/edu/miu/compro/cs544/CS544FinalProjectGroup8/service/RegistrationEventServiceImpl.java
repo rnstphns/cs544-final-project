@@ -8,11 +8,14 @@ import edu.miu.compro.cs544.CS544FinalProjectGroup8.repositories.RegistrationRep
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.repositories.RegistrationRequestRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,16 +70,16 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
 
     @Override
-    public boolean updateWindow(long id, LocalDate start, LocalDate end) {
+    public RegistrationEvent updateWindow(long id, LocalDate start, LocalDate end) {
         Optional<RegistrationEvent> registrationEventOptional = registrationEventRepository.findById(id);
         if(registrationEventOptional.isPresent()) {
             RegistrationEvent registrationEvent = registrationEventOptional.get();
             registrationEvent.setStartDate(start);
             registrationEvent.setEndDate(end);
             registrationEventRepository.save(registrationEvent);
-            return true;
+            return registrationEvent;
         }
-        else return false;
+        else return null;
     }
 
     @Override
@@ -175,5 +178,12 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
             return true;
         }
         else return false;
+    }
+
+    @Override
+    public RegistrationEvent latest() {
+        LocalDate localDateNow = LocalDate.now();
+        List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC,"endDate"));
+        return registrationEventList.get(0);
     }
 }

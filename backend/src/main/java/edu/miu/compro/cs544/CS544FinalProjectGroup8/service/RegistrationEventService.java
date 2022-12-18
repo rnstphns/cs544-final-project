@@ -16,7 +16,7 @@ public interface RegistrationEventService {
     public Collection<RegistrationEvent> getRegistrationEvents();
     public RegistrationEvent createRegistrationEvent(RegistrationEvent registrationEvent);
     public void deleteRegistrationEvent(long id);
-    public boolean updateWindow(long id, LocalDate start, LocalDate end);
+    public RegistrationEvent updateWindow(long id, LocalDate start, LocalDate end);
     public RegistrationRequest getRegistrationRequestById(long id);
     public Collection<RegistrationRequest> getRegistrationRequests();
     public RegistrationRequest createRegistrationRequest(RegistrationRequest registrationRequestDTO);
@@ -33,5 +33,6 @@ public interface RegistrationEventService {
     public RegistrationGroup createRegistrationGroup(RegistrationGroup registrationGroup);
     public void deleteRegistrationGroup(long id);
     public boolean updateRegistrationGroup(long id, RegistrationGroup registrationGroup);
+    public RegistrationEvent latest();
 
 }
