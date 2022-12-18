@@ -119,6 +119,10 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         return registrationRepository.findById(id).get();
     }
 
+    public Collection<Registration> getRegistrationsByStudentId(Integer studentId){
+        return registrationRepository.findByStudentId(studentId);
+    }
+
     @Override
     public Collection<Registration> getRegistrations() {
         return registrationRepository.findAll();
