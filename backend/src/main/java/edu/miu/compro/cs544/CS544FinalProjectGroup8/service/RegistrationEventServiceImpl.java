@@ -1,7 +1,9 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8.service;
 
-import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.*;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.Registration;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationEvent;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationGroup;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationRequest;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.repositories.RegistrationEventRepository;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.repositories.RegistrationGroupRepository;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.repositories.RegistrationRepository;

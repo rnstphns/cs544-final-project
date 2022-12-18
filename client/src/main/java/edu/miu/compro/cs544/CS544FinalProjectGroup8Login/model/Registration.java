@@ -1,0 +1,15 @@
+package edu.miu.compro.cs544.CS544FinalProjectGroup8Login.model;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+
+@Data
+@NoArgsConstructor
+public class Registration {
+
+    private Student student;
+    private List<CourseOffering> courseList;
+}
