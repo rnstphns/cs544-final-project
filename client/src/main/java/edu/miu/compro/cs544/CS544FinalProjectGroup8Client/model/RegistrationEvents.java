@@ -7,6 +7,6 @@ import java.util.Collection;
 @Data
 public class RegistrationEvents {
 
-    private final Collection<RegistrationEvent> registrationEventCollection = new ArrayList<>();
+    private Collection<RegistrationEvent> registrationEventCollection = new ArrayList<>();
 
 }
