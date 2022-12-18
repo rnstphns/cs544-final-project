@@ -29,6 +29,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     @Autowired
     private RegistrationRequestRepository registrationRequestRepository;
 
+    //TODO email student when their registration is saved
 
     @Override
     public Collection<RegistrationGroup> findRegistrationGroupsWithStudent(String studentId) {
