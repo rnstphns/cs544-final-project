@@ -15,9 +15,9 @@ public abstract class Person {
     @Id
     @GeneratedValue(strategy=GenerationType.TABLE)
     private Long id;
-    private String name;
+    protected String name;
     @Email
-    private String email;
+    protected String email;
     @Embedded
-    private Address address;
+    protected Address address;
 }

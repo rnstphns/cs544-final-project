@@ -1,9 +1,7 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8.controller;
 
-import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.Registration;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationEvent;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.service.RegistrationEventService;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8.service.RegistrationEventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/registrationevents")
+@RequestMapping("/registration-events")
 public class RegistrationEventController {
 
     @Autowired
@@ -24,7 +22,6 @@ public class RegistrationEventController {
         registrationEventService.createRegistrationEvent(registrationEvent);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 
     @DeleteMapping("/delete/{eventId}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long eventId){

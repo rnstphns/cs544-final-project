@@ -14,7 +14,7 @@ import java.util.Collection;
 public class RegistrationEvent {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @Future
     private LocalDate startDate;
     @Future

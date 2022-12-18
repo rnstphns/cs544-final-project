@@ -25,10 +25,16 @@ RegistrationEvent down to pieces and let the user create/update these parts piec
 student is a member of. Furthermore, the list of students will be masked for student view. So,
 students see RegistrationEvent -> RegistrationGroups -> AcademicBlocks -> CourseOfferings
 (in the list of course offerings, highlight the course that the student is actually registered for)
+
 5. Students can submit a list of RegistrationRequest objects. There should be one object per course
 offering for all blocks available to select from (you should validate that). The system will allow the
 student to save the list during an active RegistrationEvent (between the start and end date & time).
+-validate date in method - if(date.now is after current registration event date && before end date) - pull object from DB and save in service method?
+-getAvailableBlocks
+-validateStudentRequest
+
 6. Students should be able to see a list of Registrations. GET /registrations
+
 7. SysAdmin should be able to “process” a registration event by calling:
 PATCH /registration-events/{id}?processed=true
 

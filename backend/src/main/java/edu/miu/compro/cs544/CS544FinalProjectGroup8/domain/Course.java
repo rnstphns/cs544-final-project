@@ -17,4 +17,9 @@ public class Course {
     private Long id;
     private String code; //TODO validate code?
     private String description;
+
+    public Course(String code, String description) {
+        this.code = code;
+        this.description = description;
+    }
 }

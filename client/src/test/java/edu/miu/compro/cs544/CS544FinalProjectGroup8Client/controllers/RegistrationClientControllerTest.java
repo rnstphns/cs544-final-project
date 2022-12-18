@@ -14,18 +14,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @RunWith(SpringRunner.class)
-@WebMvcTest(RegistrationController.class)
-class RegistrationControllerTest {
+@WebMvcTest(RegistrationClientController.class)
+class RegistrationClientControllerTest {
 
     @Autowired
     MockMvc mock;
