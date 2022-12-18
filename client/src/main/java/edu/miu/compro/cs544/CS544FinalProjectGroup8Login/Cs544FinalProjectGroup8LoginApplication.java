@@ -11,5 +11,6 @@ public class Cs544FinalProjectGroup8LoginApplication {
 	}
 
 	//TODO before Monday
-	//
+	//TODO rest client
+	//TODO rest controller
 }
