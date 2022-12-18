@@ -13,15 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+//@Transactional
 @Slf4j
 public class RegistrationEventServiceImpl implements RegistrationEventService {
 
@@ -33,6 +31,12 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     private RegistrationRepository registrationRepository;
     @Autowired
     private RegistrationRequestRepository registrationRequestRepository;
+
+    private RegistrationEvent currentRegistrationEvent;
+    public RegistrationEventServiceImpl(){
+        currentRegistrationEvent = registrationEventRepository.findByStartDateLike(LocalDate.now());
+    }
+
 
     //TODO email student when their registration is saved
 

@@ -4,7 +4,7 @@ package edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvent;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvents;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequest;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
@@ -14,8 +14,7 @@ import java.util.Random;
 @Component
 public class RegistrationGateway {
 
-    @Value("backend.server")
-    private String backendUrl;
+    private String backendUrl = "http://localhost:8081";
 
     RestTemplate restTemplate = new RestTemplate();
 
@@ -51,5 +50,11 @@ public class RegistrationGateway {
     //TODO everything should be in the database and this method called only as a command?
     public RegistrationEvent processRegistrationEvent(Long id){
         return restTemplate.patchForObject(backendUrl+"/registration-events/{id}?processed=true", new Random(), RegistrationEvent.class);
+    }
+
+    public ResponseEntity<Void> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
+        String uri = backendUrl+"/registration-events/create";
+        System.out.println(uri);
+        return restTemplate.postForObject(uri, registrationEvent, ResponseEntity.class);
     }
 }

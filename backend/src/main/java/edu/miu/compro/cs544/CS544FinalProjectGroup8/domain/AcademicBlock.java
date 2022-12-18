@@ -22,4 +22,11 @@ public class AcademicBlock {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    public AcademicBlock(String code, String name, String semester, LocalDate startDate, LocalDate endDate) {
+        this.code = code;
+        this.name = name;
+        this.semester = semester;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

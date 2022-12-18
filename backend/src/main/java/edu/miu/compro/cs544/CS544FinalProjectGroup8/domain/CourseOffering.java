@@ -25,4 +25,13 @@ public class CourseOffering {
     private Integer capacity;
     @ManyToOne(cascade = CascadeType.ALL)
     private RegistrationRequest registrationRequest;
+
+    public CourseOffering(String code, AcademicBlock academicBlock, Course course, Collection<Faculty> faculty, Integer availableSeats, Integer capacity) {
+        this.code = code;
+        this.academicBlock = academicBlock;
+        this.course = course;
+        this.faculty = faculty;
+        this.availableSeats = availableSeats;
+        this.capacity = capacity;
+    }
 }

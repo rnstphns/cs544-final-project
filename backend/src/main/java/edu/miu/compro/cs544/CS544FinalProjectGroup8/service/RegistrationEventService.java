@@ -1,12 +1,12 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8.service;
 
-import java.time.LocalDate;
-import java.util.Collection;
-
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.Registration;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationEvent;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationGroup;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8.domain.RegistrationRequest;
+
+import java.time.LocalDate;
+import java.util.Collection;
 
 public interface RegistrationEventService {
 
