@@ -23,7 +23,6 @@ private StudentService studentServiceImpl;
 
     @GetMapping("/registration-events/latest")
     public ResponseEntity<RegistrationEvent> getAllCourseOfferings(){
-
         return ResponseEntity.ok(registrationEventService.latest());
     }
 

@@ -1,7 +1,8 @@
 student access:
-GET /registration-events/latest
-POST /registration-events/latest -- List<RegistrationRequest> in body
-GET /registrations
+route -- where implemented so far
+GET /registration-events/latest - studentcontroller, clientcontroller, clientgateway
+POST /registration-events/latest -- <not in backend controller>, clientgateway,
+GET /registrations/{studentId}  -- <not implemented>
 
 sysadmin access:
 GET POST PUT DELETE /registration-events/{id}
