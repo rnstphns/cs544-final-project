@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,20 +41,21 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		Course ea = new Course("CS544", "Enterprise Architecture");
 		String eaCode = ea.getCode()+decBlock.getCode()+"PP";
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
-		gateway.createCourseOffering(eaDec);
-//		RegistrationGroup registrationGroup = new RegistrationGroup();
-//		Collection<CourseOffering> courses = new ArrayList<>();
-//		courses.add(eaDec);
-//		registrationGroup.setStudents(students);
-//		registrationGroup.setCourses(courses);
-//		RegistrationEvent registrationEvent = new RegistrationEvent();
-//		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
-//		registrationGroups.add(registrationGroup);
-//		registrationEvent.setRegistrationGroups(registrationGroups);
-//		registrationEvent.setStartDate(LocalDate.of(2023,1,1));
-//		registrationEvent.setEndDate(LocalDate.of(2023,1,31));
-//		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
-//		System.out.println(re);
+//		gateway.createCourseOffering(eaDec);
+		RegistrationGroup registrationGroup = new RegistrationGroup();
+		Collection<CourseOffering> courses = new ArrayList<>();
+		courses.add(eaDec);
+		registrationGroup.setStudents(students);
+		registrationGroup.setCourses(courses);
+//		gateway.createRegistrationGroup(registrationGroup);
+		RegistrationEvent registrationEvent = new RegistrationEvent();
+		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
+		registrationGroups.add(registrationGroup);
+		registrationEvent.setRegistrationGroups(registrationGroups);
+		registrationEvent.setStartDate(LocalDate.of(2023,1,1));
+		registrationEvent.setEndDate(LocalDate.of(2023,1,31));
+		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
+		System.out.println(re);
 	}
 
 	//TODO before Monday

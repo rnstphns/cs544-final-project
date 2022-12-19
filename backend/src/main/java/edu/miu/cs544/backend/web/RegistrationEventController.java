@@ -1,10 +1,12 @@
-package edu.miu.cs544.backend.controller;
+package edu.miu.cs544.backend.web;
 
 
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationEvent;
+import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.service.CourseOfferingServiceImpl;
 import edu.miu.cs544.backend.service.RegistrationEventService;
+import edu.miu.cs544.backend.service.RegistrationGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class RegistrationEventController {
     @Autowired
     private RegistrationEventService registrationEventService;
 
+    @Autowired
+    private RegistrationGroupService registrationGroupService;
     @Autowired
     private CourseOfferingServiceImpl courseOfferingService;
 
@@ -55,7 +59,12 @@ public class RegistrationEventController {
     //TODO TEST CODE :: DO WE NEED THIS IN FINAL IMPL
     @PostMapping("/course-offering")
     public ResponseEntity<CourseOffering> createCourseOffering(@RequestBody CourseOffering courseOffering){
-        return ResponseEntity.ok(courseOfferingService.createCourseOffering(courseOffering));
+        return ResponseEntity.ok(courseOfferingService.create(courseOffering));
+    }
+
+    @PostMapping("/registration-group")
+    public ResponseEntity<RegistrationGroup> createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
+        return ResponseEntity.ok(registrationGroupService.create(registrationGroup));
     }
 
 }

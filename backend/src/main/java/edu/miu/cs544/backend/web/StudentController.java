@@ -1,10 +1,11 @@
-package edu.miu.cs544.backend.controller;
+package edu.miu.cs544.backend.web;
 
 
 import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.Student;
 import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.StudentService;
+import edu.miu.cs544.backend.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 @Autowired
-private StudentService studentService;
+private StudentService studentServiceImpl;
     @Autowired
     private RegistrationEventService registrationEventService;
 
@@ -28,23 +29,22 @@ private StudentService studentService;
 
 @PostMapping("/addstudent")
     public ResponseEntity<Void> addstudent(@RequestBody Student student){
-      studentService.addStudent(student);
+      studentServiceImpl.create(student);
       return  new ResponseEntity<>(HttpStatus.CREATED);
 }
 @DeleteMapping("/deletebyid/{id}")
     public ResponseEntity<Void> deletestudent(Long id){
-        studentService.deletestudent(id);
+        studentServiceImpl.delete(id);
         return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
 
 @PutMapping("/update/{id}")
-    public  ResponseEntity<Student> updateStudent(@RequestBody Student student ,Long id){
-
-        return   ResponseEntity.ok(studentService.updateStudent(id,student));
+    public  ResponseEntity<?> updateStudent(@RequestBody Student student , Long id){
+        return  ResponseEntity.ok(studentServiceImpl.update(id, student));
 }
 @GetMapping("/studentlist")
     public  ResponseEntity<List<Student>> getallstudents(){
-        var allstudents=studentService.getstudents();
+        var allstudents= studentServiceImpl.findAll();
         return ResponseEntity.ok(allstudents);
 }
 }

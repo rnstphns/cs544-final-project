@@ -10,6 +10,6 @@ public interface CourseOfferingService {
     List<CourseOffering> findAll ();
     CourseOffering findById(Long id);
     void delete(Long id);
-    CourseOffering createCourseOffering(CourseOffering courseOffering);
-    boolean updateCourseOffering(Long id, CourseOffering courseOffering);
+    CourseOffering create(CourseOffering courseOffering);
+    boolean update(Long id, CourseOffering courseOffering);
 }
