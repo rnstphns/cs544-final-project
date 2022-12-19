@@ -15,6 +15,6 @@ public class Registration {
     private Long id;
     @OneToOne
     private Student student;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CourseOffering> courseList;
 }

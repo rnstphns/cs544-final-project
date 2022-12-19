@@ -1,11 +1,9 @@
 package edu.miu.cs544.backend.service;
 
 
-import edu.miu.cs544.backend.Repositories.AcademicBlockRepository;
-import edu.miu.cs544.backend.Repositories.CourseOfferingRepository;
-import edu.miu.cs544.backend.Repositories.FacultyRepository;
-import edu.miu.cs544.backend.Repositories.StudentRepository;
+import edu.miu.cs544.backend.Repositories.*;
 import edu.miu.cs544.backend.domain.AcademicBlock;
+import edu.miu.cs544.backend.domain.Course;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Faculty;
 import jakarta.transaction.Transactional;
@@ -23,6 +21,9 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     private AcademicBlockRepository academicBlockRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -49,6 +50,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     public CourseOffering createCourseOffering(CourseOffering courseOffering) {
         AcademicBlock block = courseOffering.getAcademicBlock();
         academicBlockRepository.save(block);
+        Course course = courseOffering.getCourse();
+        courseRepository.save(course);
         Collection<Faculty> faculty = courseOffering.getFaculty();
         for(Faculty f: faculty) {
             facultyRepository.save(f);
