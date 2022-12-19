@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ class RegistrationClientControllerTest {
     //populate registration group
     RegistrationEvent registrationEvent = new RegistrationEvent();
     //populate event
-
+    RegistrationEvents events = new RegistrationEvents();
     @BeforeEach
     void setUp(){
         //Set up test RegistrationEvent Object
@@ -67,13 +68,13 @@ class RegistrationClientControllerTest {
         registrationEvent.setRegistrationGroups(registrationGroups);
         registrationEvent.setStartDate(LocalDate.of(2023,1,1));
         registrationEvent.setEndDate(LocalDate.of(2023,1,31));
-    }
-    @Test
-    void getRegistrationEvents() throws Exception{
-        RegistrationEvents events = new RegistrationEvents();
+        //populate events object
         ArrayList<RegistrationEvent> list = new ArrayList<>();
         list.add(registrationEvent);
         events.setRegistrationEventCollection(list);
+    }
+    @Test
+    void getRegistrationEvents() throws Exception{
         Mockito.when(registrationGateway.getRegistrationEvents())
                 .thenReturn(new ResponseEntity<RegistrationEvents>(events, HttpStatus.OK).getBody());
         mock.perform(MockMvcRequestBuilders.get("/registration-events/latest"))
@@ -87,9 +88,9 @@ class RegistrationClientControllerTest {
         request.setStudent(students.get(1));
         request.setCourseList((List<CourseOffering>) registrationGroup.getCourses());
         Mockito.when(registrationGateway.registerStudent(request))
-                .thenReturn(new ResponseEntity<RegistrationRequest>(request, HttpStatus.CREATED).getBody());
+                .thenReturn(new ResponseEntity<>(request, HttpStatus.CREATED).getBody());
         mock.perform(MockMvcRequestBuilders.post("/registration-events/latest"))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         //TODO check object json
     }
 

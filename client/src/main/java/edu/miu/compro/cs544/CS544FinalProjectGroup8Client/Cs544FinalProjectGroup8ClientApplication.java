@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +52,8 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		registrationEvent.setRegistrationGroups(registrationGroups);
 		registrationEvent.setStartDate(LocalDate.of(2023,1,1));
 		registrationEvent.setEndDate(LocalDate.of(2023,1,31));
-//		System.out.println(gateway.createRegistrationEvent(registrationEvent));
+		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
+		System.out.println(re);
 	}
 
 	//TODO before Monday
