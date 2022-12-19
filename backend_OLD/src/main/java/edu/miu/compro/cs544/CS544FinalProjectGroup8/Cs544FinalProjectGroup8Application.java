@@ -1,19 +1,11 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8;
 
-import edu.miu.compro.cs544.CS544FinalProjectGroup8.controller.RegistrationEventController;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8.controller.StudentController;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import javax.servlet.http.HttpServlet;
 
 @Slf4j
 @SpringBootApplication

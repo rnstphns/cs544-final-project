@@ -1,6 +1,7 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client;
 
 
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.CourseOffering;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvent;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvents;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequest;
@@ -60,5 +61,10 @@ public class RegistrationGateway {
         String uri = backendUrl+"/registration-events/create";
         log.info("Sending POST to "+uri+" with body " + registrationEvent);
         return restTemplate.postForObject(uri, registrationEvent, ResponseEntity.class);
+    }
+
+    public CourseOffering createCourseOffering(@RequestBody CourseOffering courseOffering){
+        log.info("Sending POST to"+backendUrl+"/registration-events/course-offering");
+        return  restTemplate.postForObject(backendUrl+"/registration-events/course-offering", courseOffering, CourseOffering.class);
     }
 }
