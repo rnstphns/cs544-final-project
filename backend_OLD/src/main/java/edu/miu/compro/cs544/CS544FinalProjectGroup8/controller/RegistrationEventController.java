@@ -36,11 +36,11 @@ public class RegistrationEventController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Collection<RegistrationEvent>> getEvent(){
+    public ResponseEntity<Collection<RegistrationEvent>> getEvents(){
        return ResponseEntity.ok(registrationEventService.getRegistrationEvents());
     }
 
-    @GetMapping("/getbyid/{eventId}")
+    @GetMapping("/get/{eventId}")
     public ResponseEntity<RegistrationEvent> getEventById(@PathVariable long eventId){
         return ResponseEntity.ok(registrationEventService.getRegistrationEventById(eventId));
     }

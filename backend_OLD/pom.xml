@@ -9,19 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.miu.compro.cs544</groupId>
-	<artifactId>CS544-Final-Project-Group8</artifactId>
+	<artifactId>CS544-Final-Project-Group8-Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CS544-Final-Project-Group8</name>
-	<description>Login module for Course Registration Application for Enterprise Architecture</description>
-	<packaging>pom</packaging>
+	<name>CS544-Final-Project-Group8-Backend</name>
+	<description>Course Registration Application for Enterprise Architecture</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-	<modules>
-		<module>Backend</module>
-		<module>email</module>
-		<module>client</module>
-	</modules>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -42,6 +36,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
 		<dependency>
@@ -71,9 +69,18 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-test</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
 	</dependencies>
 
