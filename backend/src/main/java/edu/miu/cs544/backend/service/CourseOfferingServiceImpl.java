@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,7 +48,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
-    public CourseOffering createCourseOffering(CourseOffering courseOffering) {
+    public CourseOffering create(CourseOffering courseOffering) {
         AcademicBlock block = courseOffering.getAcademicBlock();
         academicBlockRepository.save(block);
         Course course = courseOffering.getCourse();
@@ -60,8 +61,21 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
-    public boolean updateCourseOffering(Long id, CourseOffering courseOffering) {
-        return false;
+    public boolean update(Long id, CourseOffering courseOffering) {
+        Optional<CourseOffering> offering = courseOfferingRepository.findById(id);
+        if(offering.isPresent()){
+            AcademicBlock block = courseOffering.getAcademicBlock();
+            academicBlockRepository.save(block);
+            Course course = courseOffering.getCourse();
+            courseRepository.save(course);
+            Collection<Faculty> faculty = courseOffering.getFaculty();
+            for(Faculty f: faculty) {
+                facultyRepository.save(f);
+            }
+            courseOfferingRepository.save(offering.get());
+            return true;
+        }
+        else return false;
     }
 
 
