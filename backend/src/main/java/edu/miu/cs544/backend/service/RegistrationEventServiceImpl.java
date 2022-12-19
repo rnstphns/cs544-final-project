@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -62,11 +63,16 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         }
         else return null;
     }
-    //TODO test me
     @Override
     public RegistrationEvent latest() {
         LocalDate localDateNow = LocalDate.now();
         List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC,"endDate"));
-        return registrationEventList.get(0);
+        RegistrationEvent returnEvent = registrationEventList.get(0);
+        Collection<RegistrationGroup> groups = returnEvent.getRegistrationGroups();
+        for (RegistrationGroup g : groups){
+            g.setStudents(new ArrayList<Student>());
+        }
+        returnEvent.setRegistrationGroups(groups);
+        return returnEvent;
     }
 }

@@ -11,7 +11,6 @@ public interface RegistrationService {
     public Registration getRegistrationById(Long id);
     public Collection<Registration> getRegistrationsByStudentId(Integer studentId);
     public Collection<Registration> getRegistrations() ;
-
     public Registration createRegistration(Registration registration);
     public void deleteRegistration(Long id) ;
     public boolean updateRegistration(Long id, Registration registration);

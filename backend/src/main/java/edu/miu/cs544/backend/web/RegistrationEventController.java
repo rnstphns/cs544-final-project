@@ -27,6 +27,14 @@ public class RegistrationEventController {
     @Autowired
     private CourseOfferingServiceImpl courseOfferingService;
 
+    @GetMapping("/latest")
+    public ResponseEntity<?> getLatest(){
+        return new ResponseEntity<>(registrationEventService.latest(), HttpStatus.OK);
+    }
+
+//    @PostMapping
+//    public
+
     @PostMapping("/create")
     public ResponseEntity<Void> createEvent(@RequestBody RegistrationEvent registrationEvent){
         registrationEventService.createRegistrationEvent(registrationEvent);
