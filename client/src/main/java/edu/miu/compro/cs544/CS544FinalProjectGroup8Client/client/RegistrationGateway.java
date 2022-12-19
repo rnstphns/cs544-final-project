@@ -59,7 +59,7 @@ public class RegistrationGateway {
     }
 
     public RegistrationGroup createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
-        String uri = backendUrl+"/registration-events//registration-group";
+        String uri = backendUrl+"/registration-events/registration-group";
         log.info("Sending POST to "+uri);
         return restTemplate.postForObject(uri, registrationGroup, RegistrationGroup.class);
     }

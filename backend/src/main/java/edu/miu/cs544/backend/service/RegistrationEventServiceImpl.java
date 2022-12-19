@@ -62,7 +62,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         }
         else return null;
     }
-
+    //TODO test me
     @Override
     public RegistrationEvent latest() {
         LocalDate localDateNow = LocalDate.now();
