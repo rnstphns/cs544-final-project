@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Slf4j
 @SpringBootApplication
-//		(scanBasePackages = {"edu.miu.compro.cs544.CS544FinalProjectGroup8",
-//		"edu.miu.compro.cs544.CS544FinalProjectGroup8.controller"})
 //@EnableKafka
 @ComponentScan(basePackages = "domain")
 @EnableJpaRepositories(basePackages = "repositories")
@@ -27,8 +25,7 @@ public class Cs544FinalProjectGroup8Application implements CommandLineRunner {
 
 	}
 
-	//TODO before Monday for backend:
-	//TODO REST controller
+	//TODO before Wednesday for backend:
 	//TODO kafka send message to email service -- on final registration send mail to each student
 	//TODO logging slf4j on controller methods?
 	//TODO tests
