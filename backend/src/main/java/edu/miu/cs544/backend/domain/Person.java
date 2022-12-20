@@ -20,6 +20,7 @@ public abstract class Person {
     private Long id;
     private String name;
     @Email
+    @Column(name = "email", length = 30, nullable = false, unique = true)
     private String email;
     @Embedded
     private Address address;
