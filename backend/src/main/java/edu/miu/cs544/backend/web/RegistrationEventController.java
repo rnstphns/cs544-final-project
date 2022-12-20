@@ -49,14 +49,21 @@ public class RegistrationEventController {
         }
         catch(ObjectNotFoundException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }
 
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createEvent(@RequestBody RegistrationEvent registrationEvent){
-        registrationEventService.createRegistrationEvent(registrationEvent);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> createEvent(@RequestBody RegistrationEvent registrationEvent){
+        try {
+            registrationEventService.createRegistrationEvent(registrationEvent);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>("Error saving RegistrationEvent:"+e.getMessage(), HttpStatus.SEE_OTHER);
+        }
+
     }
 
 

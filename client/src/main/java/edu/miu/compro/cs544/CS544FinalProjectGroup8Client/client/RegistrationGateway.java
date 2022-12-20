@@ -18,7 +18,6 @@ public class RegistrationGateway {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    //TODO be sure this calls the student filtered method
     public RegistrationEvents getRegistrationEvents(){
         log.info("Sending GET to "+backendUrl+"/registration-events/latest");
         RegistrationEvents registrationEvents = restTemplate.getForObject(backendUrl+"/registration-events/latest", RegistrationEvents.class);

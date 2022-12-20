@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public interface RegistrationGroupService {
 
-    public Collection<RegistrationGroup> findRegistrationGroupsWithStudent(String studentId);
+    Collection<RegistrationGroup> findByStudent(Integer studentId);
 
     List<RegistrationGroup> findAll();
 

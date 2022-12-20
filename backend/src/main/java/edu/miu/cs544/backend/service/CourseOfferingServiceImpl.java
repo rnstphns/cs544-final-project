@@ -1,7 +1,7 @@
 package edu.miu.cs544.backend.service;
 
 
-import edu.miu.cs544.backend.Repositories.*;
+import edu.miu.cs544.backend.repositories.*;
 import edu.miu.cs544.backend.domain.AcademicBlock;
 import edu.miu.cs544.backend.domain.Course;
 import edu.miu.cs544.backend.domain.CourseOffering;

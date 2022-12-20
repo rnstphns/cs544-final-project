@@ -1,7 +1,8 @@
 package edu.miu.cs544.backend.service;
 
-import edu.miu.cs544.backend.Repositories.RegistrationRequestRepository;
-import edu.miu.cs544.backend.Repositories.StudentRepository;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.repositories.RegistrationRequestRepository;
+import edu.miu.cs544.backend.repositories.StudentRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationRequest;
 import edu.miu.cs544.backend.domain.Student;
@@ -40,7 +41,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     }
 
     @Override
-    public RegistrationRequest createRegistrationRequest(RegistrationRequest registrationRequest) throws EventNotOpenException, ObjectNotFoundException {
+    public RegistrationRequest createRegistrationRequest(RegistrationRequest registrationRequest) throws EventNotOpenException, ObjectNotFoundException, DatabaseException {
         if(isOpen()) {
             Student s = registrationRequest.getStudent();
             studentRepository.save(s);

@@ -1,6 +1,7 @@
 package edu.miu.cs544.backend.service;
 
-import edu.miu.cs544.backend.Repositories.RegistrationRepository;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.repositories.RegistrationRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,10 @@ public class RegistrationServiceImpl implements RegistrationService{
     public Registration getRegistrationById(Long id) {
         return registrationRepository.findById(id).get();
     }
+
+    //TODO - filter registrations by student id
     public Collection<Registration> getRegistrationsByStudentId(Integer studentId){
-        return registrationRepository.findByStudentId(studentId);
+        return null;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService{
     }
 
     @Override
-    public Registration createRegistration(Registration registration) {
+    public Registration createRegistration(Registration registration) throws DatabaseException {
         List<CourseOffering> courseOfferings = registration.getCourseList();
         for (CourseOffering c: courseOfferings) {
             courseOfferingService.create(c);

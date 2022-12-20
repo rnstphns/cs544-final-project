@@ -1,6 +1,6 @@
 package edu.miu.cs544.backend.service;
 
-import edu.miu.cs544.backend.Repositories.StudentRepository;
+import edu.miu.cs544.backend.repositories.StudentRepository;
 import edu.miu.cs544.backend.domain.Student;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,8 @@
 package edu.miu.cs544.backend.service;
 
 
-import edu.miu.cs544.backend.Repositories.RegistrationEventRepository;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.repositories.RegistrationEventRepository;
 import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.domain.Student;
@@ -40,10 +41,10 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
 
     @Override
-    public RegistrationEvent createRegistrationEvent(RegistrationEvent registrationEvent) {
+    public RegistrationEvent createRegistrationEvent(RegistrationEvent registrationEvent) throws DatabaseException{
         Collection<RegistrationGroup> groups = registrationEvent.getRegistrationGroups();
         for (RegistrationGroup g : groups) {
-            registrationGroupService.create(g);
+                registrationGroupService.create(g);
         }
         return registrationEventRepository.save(registrationEvent);
     }
