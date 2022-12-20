@@ -25,11 +25,6 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService{
     @Autowired
     private StudentService studentService;
 
-    @Override
-    public Collection<RegistrationGroup> findByStudent(Integer studentId) {
-        //TODO implement
-        return null;
-    }
 
     @Override
     public List<RegistrationGroup> findAll() {

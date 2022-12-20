@@ -24,8 +24,8 @@ public class RegistrationGateway {
         return registrationEvents;
     }
     public RegistrationRequest registerStudent(@RequestBody RegistrationRequest registrationRequest){
-        log.info("Sending POST to "+backendUrl+"/registration-events/latest with body" + registrationRequest);
-        return restTemplate.postForObject(backendUrl+"/registration-events/latest", registrationRequest, RegistrationRequest.class);
+        log.info("Sending POST to "+backendUrl+"/registration-events/request with body" + registrationRequest);
+        return restTemplate.postForObject(backendUrl+"/registration-events/request", registrationRequest, RegistrationRequest.class);
     }
     //TODO be sure this calls a method to find registration by studentid
     public Registrations getRegistrationsByStudent(Integer studentId){
@@ -62,4 +62,5 @@ public class RegistrationGateway {
         log.info("Sending POST to "+uri);
         return restTemplate.postForObject(uri, registrationGroup, RegistrationGroup.class);
     }
+
 }

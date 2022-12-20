@@ -12,9 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -44,9 +42,14 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     public RegistrationRequest createRegistrationRequest(RegistrationRequest registrationRequest) throws EventNotOpenException, ObjectNotFoundException, DatabaseException {
         if(isOpen()) {
             Student s = registrationRequest.getStudent();
-            studentRepository.save(s);
+            Optional<Student> exists = studentRepository.findByStudentId(registrationRequest.getStudent().getStudentId());
+            if(exists.isEmpty()) {
+                throw new ObjectNotFoundException("Student "+s.getStudentId()+" is not in the database");
+            }
+            registrationRequest.setStudent(exists.get());
             List<CourseOffering> requestedCourses = registrationRequest.getCourseList();
             List<CourseOffering> existingCourses = courseOfferingService.findAll();
+            List<CourseOffering> returnList = new ArrayList<>();
             HashMap<Integer, String> existingMap = new HashMap<>();
             for(CourseOffering co: existingCourses){
                 existingMap.put(1, co.getCode());
@@ -55,9 +58,10 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
                 if(!existingMap.containsValue(req.getCode()))
                     throw new ObjectNotFoundException("Course "+ req.getCode()+" does not exist.");
                 else{
-                    courseOfferingService.create(req);
+                   returnList.add(req);
                 }
             }
+            registrationRequest.setCourseList(returnList);
             return registrationRequestRepository.save(registrationRequest);
         }
         else throw new EventNotOpenException("Current registration event is not open");
@@ -80,5 +84,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     protected boolean isOpen(){
         return true;
     }
+
+
 
 }

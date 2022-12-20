@@ -8,6 +8,7 @@ import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Faculty;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Slf4j
 public class CourseOfferingServiceImpl implements CourseOfferingService {
     @Autowired
     private CourseOfferingRepository courseOfferingRepository;
@@ -50,20 +52,25 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Override
     public CourseOffering create(CourseOffering courseOffering) throws DatabaseException {
-        try{
-            AcademicBlock block = courseOffering.getAcademicBlock();
-            academicBlockRepository.save(block);
-            Course course = courseOffering.getCourse();
-            courseRepository.save(course);
-            Collection<Faculty> faculty = courseOffering.getFaculty();
-            for(Faculty f: faculty) {
-                facultyRepository.save(f);
+        Optional<CourseOffering> exists = courseOfferingRepository.findByCode(courseOffering.getCode());
+        if(exists.isPresent()){
+            log.info("Request caught to create duplicate CourseOffering");
+        }else{
+            try{
+                AcademicBlock block = courseOffering.getAcademicBlock();
+                academicBlockRepository.save(block);
+                Course course = courseOffering.getCourse();
+                courseRepository.save(course);
+                Collection<Faculty> faculty = courseOffering.getFaculty();
+                for(Faculty f: faculty) {
+                    facultyRepository.save(f);
+                }
+                return courseOfferingRepository.save(courseOffering);
+            }catch(Exception e){
+                log.error("Exception caught in create CourseOffering"+e);
             }
-            return courseOfferingRepository.save(courseOffering);
-        }catch(Exception e){
-            throw new DatabaseException(e.getMessage());
         }
-
+        return exists.get();
     }
 
     @Override
