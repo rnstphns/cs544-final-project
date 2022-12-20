@@ -17,7 +17,6 @@ public class RegistrationRequest {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     private Student student;
-
     @OneToMany(cascade = CascadeType.ALL)
     private List<CourseOffering> courseList;
 

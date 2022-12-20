@@ -6,7 +6,9 @@ import edu.miu.cs544.backend.exceptions.DatabaseException;
 import java.util.Collection;
 
 public interface RegistrationService {
+
     public Registration getRegistrationById(Long id);
+    public Collection<Registration> getRegistrationsByStudentId(Integer studentId);
     public Collection<Registration> getRegistrations() ;
     public Registration createRegistration(Registration registration) throws DatabaseException;
     public void deleteRegistration(Long id) ;

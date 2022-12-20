@@ -12,8 +12,6 @@ import java.util.List;
 @Transactional
 public interface RegistrationGroupService {
 
-    Collection<RegistrationGroup> findByStudent(Integer studentId);
-
     List<RegistrationGroup> findAll();
 
     RegistrationGroup findById(Long id);

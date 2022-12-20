@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @SpringBootApplication
 public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunner {
@@ -41,21 +42,25 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		Course ea = new Course("CS544", "Enterprise Architecture");
 		String eaCode = ea.getCode()+decBlock.getCode()+"PP";
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
-//		gateway.createCourseOffering(eaDec);
-		RegistrationGroup registrationGroup = new RegistrationGroup();
+////		gateway.createCourseOffering(eaDec);
+//		RegistrationGroup registrationGroup = new RegistrationGroup();
 		Collection<CourseOffering> courses = new ArrayList<>();
 		courses.add(eaDec);
-		registrationGroup.setStudents(students);
-		registrationGroup.setCourses(courses);
-//		gateway.createRegistrationGroup(registrationGroup);
-		RegistrationEvent registrationEvent = new RegistrationEvent();
-		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
-		registrationGroups.add(registrationGroup);
-		registrationEvent.setRegistrationGroups(registrationGroups);
-		registrationEvent.setStartDate(LocalDate.of(2023,2,1));
-		registrationEvent.setEndDate(LocalDate.of(2023,2,28));
-		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
-		System.out.println(re);
+//		registrationGroup.setStudents(students);
+//		registrationGroup.setCourses(courses);
+////		gateway.createRegistrationGroup(registrationGroup);
+//		RegistrationEvent registrationEvent = new RegistrationEvent();
+//		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
+//		registrationGroups.add(registrationGroup);
+//		registrationEvent.setRegistrationGroups(registrationGroups);
+//		registrationEvent.setStartDate(LocalDate.of(2023,2,1));
+//		registrationEvent.setEndDate(LocalDate.of(2023,2,28));
+//		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
+//		System.out.println(re);
+		RegistrationRequest rr = new RegistrationRequest();
+		rr.setCourseList((List<CourseOffering>) courses);
+		rr.setStudent(students.get(0));
+		gateway.registerStudent(rr);
 	}
 
 	//TODO before Monday
