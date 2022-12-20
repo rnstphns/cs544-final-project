@@ -15,7 +15,7 @@ public class Course {
     @Id
     @GeneratedValue
     private Long id;
-    private String code; //TODO validate code?
+    private String code;
     private String description;
 
     public Course(String code, String description) {

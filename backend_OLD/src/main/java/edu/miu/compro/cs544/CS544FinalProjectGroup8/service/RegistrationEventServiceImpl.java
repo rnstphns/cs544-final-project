@@ -38,11 +38,11 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
 
 
-    //TODO email student when their registration is saved
+
 
     @Override
     public Collection<RegistrationGroup> findRegistrationGroupsWithStudent(String studentId) {
-        //TODO implement this or repo level query
+
 //        Collection<RegistrationGroup> registrationGroups = registrationGroupRepository.findAll();
 //        Collection<RegistrationGroup> filteredRegistrationGroup = registrationGroups.stream()
 //                .filter(rg ->

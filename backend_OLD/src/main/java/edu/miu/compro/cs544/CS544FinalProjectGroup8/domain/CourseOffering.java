@@ -14,7 +14,7 @@ public class CourseOffering {
     @Id
     @GeneratedValue
     private Long id;
-    private String code; //TODO validate code? S544-2022-12A-12D-XX
+    private String code;
     @OneToOne
     private AcademicBlock academicBlock;
     @OneToOne
