@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/registration-events")
@@ -40,10 +41,10 @@ public class RegistrationEventController {
         return new ResponseEntity<>(registrationEventService.latest(), HttpStatus.OK);
     }
 
-    @PostMapping("/request")
-    public ResponseEntity<?> sendRequest(@RequestBody RegistrationRequest request) {
+    @PostMapping("/request/{studentId}")
+    public ResponseEntity<?> sendRequest(@RequestBody List<RegistrationRequest> request, Integer studentId) {
         try{
-            return new ResponseEntity<>(requestService.createRegistrationRequest(request), HttpStatus.OK);
+            return new ResponseEntity<>(requestService.createRegistrationRequest(request, studentId), HttpStatus.OK);
         }catch(EventNotOpenException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }

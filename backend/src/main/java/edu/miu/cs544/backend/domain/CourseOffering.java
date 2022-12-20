@@ -21,6 +21,7 @@ public class CourseOffering {
     @Column(length = 30, nullable = false, unique = true)
     private String code; //TODO validate code? S544-2022-12A-12D-XX
     @OneToOne
+    @PrimaryKeyJoinColumn
     private AcademicBlock academicBlock;
     @OneToOne
     private Course course;

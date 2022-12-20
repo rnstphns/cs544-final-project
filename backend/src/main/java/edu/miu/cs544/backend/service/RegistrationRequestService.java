@@ -6,11 +6,12 @@ import edu.miu.cs544.backend.exceptions.EventNotOpenException;
 import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface RegistrationRequestService {
 
     public RegistrationRequest getRegistrationRequestById(Long id);
     public Collection<RegistrationRequest> getRegistrationRequests();
-    public RegistrationRequest createRegistrationRequest(RegistrationRequest registrationRequest) throws EventNotOpenException, ObjectNotFoundException, DatabaseException;
+    public RegistrationRequest createRegistrationRequest(List<RegistrationRequest> registrationRequest, Integer studentID) throws EventNotOpenException, ObjectNotFoundException, DatabaseException;
     public void deleteRegistrationRequest(Long id);
 }
