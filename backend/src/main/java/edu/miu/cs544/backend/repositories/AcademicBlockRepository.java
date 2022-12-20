@@ -1,4 +1,4 @@
-package edu.miu.cs544.backend.Repositories;
+package edu.miu.cs544.backend.repositories;
 
 import edu.miu.cs544.backend.domain.AcademicBlock;
 import org.springframework.data.jpa.repository.JpaRepository;

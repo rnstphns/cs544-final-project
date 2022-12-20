@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class AcademicBlock {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code; //TODO validate code? 2022-12A-12D
     private String name; //TODO validate name? December 2022

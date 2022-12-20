@@ -21,6 +21,6 @@ public class RegistrationEvent implements Serializable {
     private LocalDate startDate;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate endDate;
-    @OneToMany(cascade= CascadeType.PERSIST)
+    @OneToMany(cascade= CascadeType.ALL)
     private Collection<RegistrationGroup> registrationGroups;
 }
