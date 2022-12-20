@@ -1,11 +1,7 @@
 package edu.miu.cs544.backend.service;
 
 
-
-import edu.miu.cs544.backend.domain.Registration;
 import edu.miu.cs544.backend.domain.RegistrationEvent;
-import edu.miu.cs544.backend.domain.RegistrationGroup;
-import edu.miu.cs544.backend.domain.RegistrationRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

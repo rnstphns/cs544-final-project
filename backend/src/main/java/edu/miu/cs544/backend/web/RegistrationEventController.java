@@ -11,7 +11,6 @@ import edu.miu.cs544.backend.service.CourseOfferingServiceImpl;
 import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.RegistrationGroupService;
 import edu.miu.cs544.backend.service.RegistrationRequestService;
-import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

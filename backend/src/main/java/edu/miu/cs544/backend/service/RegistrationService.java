@@ -1,11 +1,8 @@
 package edu.miu.cs544.backend.service;
 
-import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Registration;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 public interface RegistrationService {
     public Registration getRegistrationById(Long id);

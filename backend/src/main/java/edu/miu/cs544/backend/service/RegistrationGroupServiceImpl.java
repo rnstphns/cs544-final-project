@@ -3,10 +3,10 @@ package edu.miu.cs544.backend.service;
 import edu.miu.cs544.backend.Repositories.RegistrationGroupRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
+import edu.miu.cs544.backend.domain.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import edu.miu.cs544.backend.domain.Student;
 
 import java.util.Collection;
 import java.util.List;

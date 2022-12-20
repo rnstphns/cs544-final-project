@@ -5,7 +5,6 @@ import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.Student;
 import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.StudentService;
-import edu.miu.cs544.backend.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

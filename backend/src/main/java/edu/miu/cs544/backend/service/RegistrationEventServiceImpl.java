@@ -1,8 +1,10 @@
 package edu.miu.cs544.backend.service;
 
 
-import edu.miu.cs544.backend.Repositories.*;
-import edu.miu.cs544.backend.domain.*;
+import edu.miu.cs544.backend.Repositories.RegistrationEventRepository;
+import edu.miu.cs544.backend.domain.RegistrationEvent;
+import edu.miu.cs544.backend.domain.RegistrationGroup;
+import edu.miu.cs544.backend.domain.Student;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

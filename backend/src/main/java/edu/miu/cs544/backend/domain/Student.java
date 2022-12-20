@@ -23,4 +23,6 @@ public class Student {
     @Embedded
     private Address address;
 
+
+
 }
