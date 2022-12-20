@@ -9,15 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Faculty  {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @Email
-    private String email;
-    @Embedded
-    private Address address;
-
+public class Faculty extends Person{
+    @Column(name = "title", length = 30, nullable = false)
+    private String title;
 
 }

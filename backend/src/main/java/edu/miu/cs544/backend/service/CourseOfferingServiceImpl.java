@@ -1,11 +1,12 @@
 package edu.miu.cs544.backend.service;
 
 
-import edu.miu.cs544.backend.Repositories.*;
+import edu.miu.cs544.backend.repositories.*;
 import edu.miu.cs544.backend.domain.AcademicBlock;
 import edu.miu.cs544.backend.domain.Course;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Faculty;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,16 +49,21 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
-    public CourseOffering create(CourseOffering courseOffering) {
-        AcademicBlock block = courseOffering.getAcademicBlock();
-        academicBlockRepository.save(block);
-        Course course = courseOffering.getCourse();
-        courseRepository.save(course);
-        Collection<Faculty> faculty = courseOffering.getFaculty();
-        for(Faculty f: faculty) {
-            facultyRepository.save(f);
+    public CourseOffering create(CourseOffering courseOffering) throws DatabaseException {
+        try{
+            AcademicBlock block = courseOffering.getAcademicBlock();
+            academicBlockRepository.save(block);
+            Course course = courseOffering.getCourse();
+            courseRepository.save(course);
+            Collection<Faculty> faculty = courseOffering.getFaculty();
+            for(Faculty f: faculty) {
+                facultyRepository.save(f);
+            }
+            return courseOfferingRepository.save(courseOffering);
+        }catch(Exception e){
+            throw new DatabaseException(e.getMessage());
         }
-        return courseOfferingRepository.save(courseOffering);
+
     }
 
     @Override

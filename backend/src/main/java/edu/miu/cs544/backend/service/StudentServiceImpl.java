@@ -1,7 +1,8 @@
 package edu.miu.cs544.backend.service;
 
-import edu.miu.cs544.backend.Repositories.StudentRepository;
+import edu.miu.cs544.backend.repositories.StudentRepository;
 import edu.miu.cs544.backend.domain.Student;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student create(Student student) {
-        return studentRepository.save(student);
+    public Student create(Student student) throws DatabaseException {
+        try{
+            return studentRepository.save(student);
+        }catch(Exception e){
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 
     @Override

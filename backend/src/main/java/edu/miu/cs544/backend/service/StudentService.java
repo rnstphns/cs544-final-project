@@ -1,6 +1,7 @@
 package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.Student;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface StudentService {
 
     void delete(Long id);
 
-    Student create(Student student);
+    Student create(Student student) throws DatabaseException;
 
     boolean update(Long id, Student student);
 }

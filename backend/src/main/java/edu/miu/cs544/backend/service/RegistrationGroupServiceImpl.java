@@ -1,12 +1,13 @@
 package edu.miu.cs544.backend.service;
 
-import edu.miu.cs544.backend.Repositories.RegistrationGroupRepository;
+import edu.miu.cs544.backend.repositories.RegistrationGroupRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
+import edu.miu.cs544.backend.domain.Student;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import edu.miu.cs544.backend.domain.Student;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,18 +26,9 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService{
     private StudentService studentService;
 
     @Override
-    public Collection<RegistrationGroup> findRegistrationGroupsWithStudent(String studentId) {
-            //TODO implement this or repo level query
-//        Collection<RegistrationGroup> registrationGroups = registrationGroupRepository.findAll();
-//        Collection<RegistrationGroup> filteredRegistrationGroup = registrationGroups.stream()
-//                .filter(rg ->
-//                    rg.getStudents()
-//                            .stream()
-//                            .filter(student -> (student.getStudentId().equals(studentId)))
-//                            .map(s -> s.)
-//                ).collect(Collectors.toList());
-//        return filteredRegistrationGroup;
-            return null;
+    public Collection<RegistrationGroup> findByStudent(Integer studentId) {
+        //TODO implement
+        return null;
     }
 
     @Override
@@ -55,7 +47,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService{
     }
 
     @Override
-    public RegistrationGroup create(RegistrationGroup registrationGroup) {
+    public RegistrationGroup create(RegistrationGroup registrationGroup) throws DatabaseException {
         Collection<Student> students = registrationGroup.getStudents();
         for(Student s: students){
             studentService.create(s);

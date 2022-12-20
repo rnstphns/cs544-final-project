@@ -1,6 +1,7 @@
 package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.RegistrationGroup;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Transactional
 public interface RegistrationGroupService {
 
-    public Collection<RegistrationGroup> findRegistrationGroupsWithStudent(String studentId);
+    Collection<RegistrationGroup> findByStudent(Integer studentId);
 
     List<RegistrationGroup> findAll();
 
@@ -19,7 +20,7 @@ public interface RegistrationGroupService {
 
     void delete(Long id);
 
-    RegistrationGroup create(RegistrationGroup r);
+    RegistrationGroup create(RegistrationGroup r) throws DatabaseException;
 
     boolean update(Long id, RegistrationGroup r);
 }

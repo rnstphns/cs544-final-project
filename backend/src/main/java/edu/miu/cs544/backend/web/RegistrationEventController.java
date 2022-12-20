@@ -5,13 +5,13 @@ import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.domain.RegistrationRequest;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import edu.miu.cs544.backend.exceptions.EventNotOpenException;
 import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.service.CourseOfferingServiceImpl;
 import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.RegistrationGroupService;
 import edu.miu.cs544.backend.service.RegistrationRequestService;
-import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,14 +49,21 @@ public class RegistrationEventController {
         }
         catch(ObjectNotFoundException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }
 
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createEvent(@RequestBody RegistrationEvent registrationEvent){
-        registrationEventService.createRegistrationEvent(registrationEvent);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> createEvent(@RequestBody RegistrationEvent registrationEvent){
+        try {
+            registrationEventService.createRegistrationEvent(registrationEvent);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>("Error saving RegistrationEvent:"+e.getMessage(), HttpStatus.SEE_OTHER);
+        }
+
     }
 
 
@@ -82,15 +89,23 @@ public class RegistrationEventController {
         return ResponseEntity.ok(registrationEventService.getRegistrationEventById(eventId));
     }
 
-    //TODO TEST CODE :: DO WE NEED THIS IN FINAL IMPL
     @PostMapping("/course-offering")
-    public ResponseEntity<CourseOffering> createCourseOffering(@RequestBody CourseOffering courseOffering){
-        return ResponseEntity.ok(courseOfferingService.create(courseOffering));
+    public ResponseEntity<?> createCourseOffering(@RequestBody CourseOffering courseOffering) {
+        try {
+            return ResponseEntity.ok(courseOfferingService.create(courseOffering));
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>("Error saving CourseOffering:"+e.getMessage(), HttpStatus.SEE_OTHER);
+        }
     }
 
     @PostMapping("/registration-group")
-    public ResponseEntity<RegistrationGroup> createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
-        return ResponseEntity.ok(registrationGroupService.create(registrationGroup));
+    public ResponseEntity<?> createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
+        try{
+            return ResponseEntity.ok(registrationGroupService.create(registrationGroup));
+        }catch(DatabaseException e){
+            return new ResponseEntity<>("Error saving CourseOffering:"+e.getMessage(), HttpStatus.SEE_OTHER);
+        }
+
     }
 
 }
