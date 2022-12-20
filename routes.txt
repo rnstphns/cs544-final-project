@@ -1,7 +1,7 @@
 student access:
 route -- where implemented so far
 GET /registration-events/latest - studentcontroller, clientcontroller, clientgateway
-POST /registration-events/latest -- <not in backend controller>, clientgateway,
+POST /registration-events/request -- eventcontroller,<notclientside>
 GET /registrations/{studentId}  -- <not implemented>
 
 sysadmin access:

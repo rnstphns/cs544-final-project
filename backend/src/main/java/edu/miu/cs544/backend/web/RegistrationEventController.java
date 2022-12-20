@@ -4,9 +4,14 @@ package edu.miu.cs544.backend.web;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
+import edu.miu.cs544.backend.domain.RegistrationRequest;
+import edu.miu.cs544.backend.exceptions.EventNotOpenException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.service.CourseOfferingServiceImpl;
 import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.RegistrationGroupService;
+import edu.miu.cs544.backend.service.RegistrationRequestService;
+import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +32,26 @@ public class RegistrationEventController {
     @Autowired
     private CourseOfferingServiceImpl courseOfferingService;
 
+    @Autowired
+    private RegistrationRequestService requestService;
+
     @GetMapping("/latest")
     public ResponseEntity<?> getLatest(){
         return new ResponseEntity<>(registrationEventService.latest(), HttpStatus.OK);
     }
 
-//    @PostMapping
-//    public
+    @PostMapping("/request")
+    public ResponseEntity<?> sendRequest(@RequestBody RegistrationRequest request) {
+        try{
+            return new ResponseEntity<>(requestService.createRegistrationRequest(request), HttpStatus.OK);
+        }catch(EventNotOpenException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        }
+        catch(ObjectNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        }
+
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Void> createEvent(@RequestBody RegistrationEvent registrationEvent){
