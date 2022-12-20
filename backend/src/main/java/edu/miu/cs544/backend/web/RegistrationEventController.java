@@ -42,9 +42,9 @@ public class RegistrationEventController {
     }
 
     @PostMapping("/request/{studentId}")
-    public ResponseEntity<?> sendRequest(@RequestBody List<RegistrationRequest> request, Integer studentId) {
+    public ResponseEntity<?> sendRequest(@RequestBody List<RegistrationRequest> requests, @PathVariable Integer studentId) {
         try{
-            return new ResponseEntity<>(requestService.createRegistrationRequest(request, studentId), HttpStatus.OK);
+            return new ResponseEntity<>(requestService.createRegistrationRequest(requests, studentId), HttpStatus.OK);
         }catch(EventNotOpenException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }

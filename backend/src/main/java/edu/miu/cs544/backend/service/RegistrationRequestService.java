@@ -12,6 +12,8 @@ public interface RegistrationRequestService {
 
     public RegistrationRequest getRegistrationRequestById(Long id);
     public Collection<RegistrationRequest> getRegistrationRequests();
-    public RegistrationRequest createRegistrationRequest(List<RegistrationRequest> registrationRequest, Integer studentID) throws EventNotOpenException, ObjectNotFoundException, DatabaseException;
+
+    boolean createRegistrationRequest(List<RegistrationRequest> requests, Integer studentID) throws EventNotOpenException, ObjectNotFoundException, DatabaseException;
+
     public void deleteRegistrationRequest(Long id);
 }

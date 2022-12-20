@@ -8,7 +8,10 @@ import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RegistrationClientController {
@@ -23,10 +26,10 @@ public class RegistrationClientController {
        return new ResponseEntity<RegistrationEvents>(registrationEvents, HttpStatus.OK);
     }
     @PostMapping("/registration-events/latest")
-    public ResponseEntity<?> registerStudent(@RequestBody RegistrationRequest registrationRequest){
-        Integer studentId = registrationRequest.getStudent().getStudentId();
-        RegistrationRequest request = registrationGateway.registerStudent(registrationRequest);
-        return new ResponseEntity<RegistrationRequest>(request, HttpStatus.CREATED);
+    public ResponseEntity<?> registerStudent(@RequestBody List<RegistrationRequest> registrationRequest){
+        Integer studentId = registrationRequest.get(0).getStudent().getStudentId();
+        registrationGateway.registerStudent(registrationRequest);
+        return new ResponseEntity<Boolean>(HttpStatus.CREATED);
     }
     @GetMapping("/registration-events/request/{studentId}")
     public ResponseEntity<?> getRegistrationsByStudent(@PathVariable("studentId") Integer studentId){

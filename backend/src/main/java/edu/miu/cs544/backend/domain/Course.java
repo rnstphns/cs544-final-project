@@ -16,7 +16,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "course_code", length = 10, nullable = false, unique = true)
-    private String code; //TODO validate code?
+    @Column(name = "course_code", length = 10, nullable = false)
+    private String code;
     private String description;
 }

@@ -1,12 +1,8 @@
 package edu.miu.cs544.backend.service;
 
 
+import edu.miu.cs544.backend.domain.*;
 import edu.miu.cs544.backend.repositories.*;
-import edu.miu.cs544.backend.domain.AcademicBlock;
-import edu.miu.cs544.backend.domain.Course;
-import edu.miu.cs544.backend.domain.CourseOffering;
-import edu.miu.cs544.backend.domain.Faculty;
-import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +46,6 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         courseOfferingRepository.deleteById(id);
     }
 
-    //TODO can't run the script in client main class anymore
     @Override
     public void create(CourseOffering courseOffering){
         try {
@@ -58,7 +53,6 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
             if (exists.isPresent()) {
                 log.info("Request caught to create duplicate CourseOffering");
             } else {
-
                 AcademicBlock block = courseOffering.getAcademicBlock();
                 academicBlockRepository.save(block);
                 Course course = courseOffering.getCourse();
@@ -72,6 +66,16 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         }catch(Exception e){
                 log.error("Exception caught in create CourseOffering"+e);
         }
+    }
+    @Override
+    public boolean updateRegistrationRequest(Long id, RegistrationRequest request){
+        Optional<CourseOffering> found = courseOfferingRepository.findById(id);
+        if(found.isPresent()){
+            found.get().setRegistrationRequest(request);
+            courseOfferingRepository.save(found.get());
+            return true;
+        }else
+            return false;
     }
 
     @Override
@@ -89,7 +93,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
             courseOfferingRepository.save(offering.get());
             return true;
         }
-        else return false;
+        else
+            return false;
     }
 
 

@@ -42,13 +42,11 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		Course ea = new Course("CS544", "Enterprise Architecture");
 		String eaCode = ea.getCode()+decBlock.getCode()+"PP";
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
-		gateway.createCourseOffering(eaDec);
 		RegistrationGroup registrationGroup = new RegistrationGroup();
 		Collection<CourseOffering> courses = new ArrayList<>();
 		courses.add(eaDec);
 		registrationGroup.setStudents(students);
 		registrationGroup.setCourses(courses);
-		gateway.createRegistrationGroup(registrationGroup);
 		RegistrationEvent registrationEvent = new RegistrationEvent();
 		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
 		registrationGroups.add(registrationGroup);
@@ -58,12 +56,16 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
 		System.out.println(re);
 
-//		RegistrationRequest rr = new RegistrationRequest();
-//		rr.setCourseList((List<CourseOffering>) courses);
-//		rr.setStudent(students.get(0));
-//		gateway.registerStudent(rr);
-//		gateway.getRegistrationEventById(1L);
-//		gateway.getRegistrationEvents();
+
+		RegistrationRequest rr = new RegistrationRequest();
+		rr.setCourseList((ArrayList<CourseOffering>) courses);
+		ArrayList<RegistrationRequest> rrs = new ArrayList();
+		rrs.add(rr);
+		Student s = students.get(0);
+		rr.setStudent(s);
+		gateway.registerStudent(rrs);
+		gateway.getRegistrationEventById(1L);
+		gateway.getRegistrationEvents();
 	}
 
 }

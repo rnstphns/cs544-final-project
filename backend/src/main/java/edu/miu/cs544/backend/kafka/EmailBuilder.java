@@ -1,6 +1,8 @@
 package edu.miu.cs544.backend.kafka;
 import edu.miu.cs544.backend.domain.Student;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmailBuilder {
 
     public EmailTemplate generateRegistrationSuccessEmail(Student student){

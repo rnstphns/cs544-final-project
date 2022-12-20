@@ -15,9 +15,9 @@ public class RegistrationRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Student student;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<CourseOffering> courseList;
 
 }

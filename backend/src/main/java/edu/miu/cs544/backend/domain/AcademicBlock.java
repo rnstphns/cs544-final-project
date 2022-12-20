@@ -1,9 +1,6 @@
 package edu.miu.cs544.backend.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +14,9 @@ import java.time.LocalDate;
 public class AcademicBlock {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 30, nullable = false, unique = true)
     private String code; //TODO validate code? 2022-12A-12D
     private String name; //TODO validate name? December 2022
     private String semester; //TODO validate? Spring

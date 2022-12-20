@@ -2,6 +2,7 @@ package edu.miu.cs544.backend.service;
 
 
 import edu.miu.cs544.backend.domain.CourseOffering;
+import edu.miu.cs544.backend.domain.RegistrationRequest;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +13,8 @@ public interface CourseOfferingService {
     CourseOffering findById(Long id);
     void delete(Long id);
     void create(CourseOffering courseOffering) throws DatabaseException;
+
+    boolean updateRegistrationRequest(Long id, RegistrationRequest request);
+
     boolean update(Long id, CourseOffering courseOffering);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Random;
 
 @Component
@@ -23,10 +24,11 @@ public class RegistrationGateway {
         RegistrationEvents registrationEvents = restTemplate.getForObject(backendUrl+"/registration-events/latest", RegistrationEvents.class);
         return registrationEvents;
     }
-    public RegistrationRequest registerStudent(@RequestBody RegistrationRequest registrationRequest){
-        String url = String.join(backendUrl,"/registration-events/request/1}");
-        log.info("Sending POST to "+ url + registrationRequest);
-        return restTemplate.postForObject(url, registrationRequest, RegistrationRequest.class);
+    public ResponseEntity<?> registerStudent(@RequestBody List<RegistrationRequest> registrationRequest){
+        String studentId = registrationRequest.get(0).getStudent().getStudentId().toString();
+        String url = backendUrl+"/registration-events/request/"+studentId;
+        log.info("Sending POST to "+ url);
+        return restTemplate.postForObject(url, registrationRequest, ResponseEntity.class);
     }
     //TODO be sure this calls a method to find registration by studentid
     public Registrations getRegistrationsByStudent(Integer studentId){

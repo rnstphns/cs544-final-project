@@ -83,14 +83,7 @@ class RegistrationClientControllerTest {
 
     @Test
     void registerStudent() throws Exception{
-        RegistrationRequest request = new RegistrationRequest();
-        request.setStudent(students.get(1));
-        request.setCourseList((List<CourseOffering>) registrationGroup.getCourses());
-        Mockito.when(registrationGateway.registerStudent(request))
-                .thenReturn(new ResponseEntity<>(request, HttpStatus.CREATED).getBody());
-        mock.perform(MockMvcRequestBuilders.post("/registration-events/latest"))
-                .andExpect(status().isCreated());
-        //TODO check object json
+
     }
 
     @Test
