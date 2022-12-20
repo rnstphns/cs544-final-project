@@ -69,10 +69,15 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     @Override
     public RegistrationEvent latest() {
         LocalDate localDateNow = LocalDate.now();
-        List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC,"endDate"));
-        RegistrationEvent returnEvent = registrationEventList.get(0);
+        List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
+        RegistrationEvent returnEvent = new RegistrationEvent();
+        try {
+            returnEvent = registrationEventList.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            log.error("No events in the database");
+        }
         Collection<RegistrationGroup> groups = returnEvent.getRegistrationGroups();
-        for (RegistrationGroup g : groups){
+        for (RegistrationGroup g : groups) {
             g.setStudents(new ArrayList<Student>());
         }
         returnEvent.setRegistrationGroups(groups);

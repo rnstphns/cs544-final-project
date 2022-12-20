@@ -24,8 +24,9 @@ public class RegistrationGateway {
         return registrationEvents;
     }
     public RegistrationRequest registerStudent(@RequestBody RegistrationRequest registrationRequest){
-        log.info("Sending POST to "+backendUrl+"/registration-events/request with body" + registrationRequest);
-        return restTemplate.postForObject(backendUrl+"/registration-events/request", registrationRequest, RegistrationRequest.class);
+        String url = String.join(backendUrl,"/registration-events/request/1}");
+        log.info("Sending POST to "+ url + registrationRequest);
+        return restTemplate.postForObject(url, registrationRequest, RegistrationRequest.class);
     }
     //TODO be sure this calls a method to find registration by studentid
     public Registrations getRegistrationsByStudent(Integer studentId){
@@ -35,7 +36,6 @@ public class RegistrationGateway {
     }
 
 //    sysadmin access:
-//    GET POST PUT DELETE /registration-events/{id} //GET and POST done
     public RegistrationEvent getRegistrationEventById(Long id){
         log.info("Sending GET to "+backendUrl+"/registration-events/"+id);
         return restTemplate.getForObject(backendUrl+"/registration-events/{id}", RegistrationEvent.class);

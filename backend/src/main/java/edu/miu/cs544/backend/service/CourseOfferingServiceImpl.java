@@ -50,27 +50,28 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         courseOfferingRepository.deleteById(id);
     }
 
+    //TODO can't run the script in client main class anymore
     @Override
-    public CourseOffering create(CourseOffering courseOffering) throws DatabaseException {
-        Optional<CourseOffering> exists = courseOfferingRepository.findByCode(courseOffering.getCode());
-        if(exists.isPresent()){
-            log.info("Request caught to create duplicate CourseOffering");
-        }else{
-            try{
+    public void create(CourseOffering courseOffering){
+        try {
+            Optional<CourseOffering> exists = courseOfferingRepository.findByCode(courseOffering.getCode());
+            if (exists.isPresent()) {
+                log.info("Request caught to create duplicate CourseOffering");
+            } else {
+
                 AcademicBlock block = courseOffering.getAcademicBlock();
                 academicBlockRepository.save(block);
                 Course course = courseOffering.getCourse();
                 courseRepository.save(course);
                 Collection<Faculty> faculty = courseOffering.getFaculty();
-                for(Faculty f: faculty) {
+                for (Faculty f : faculty) {
                     facultyRepository.save(f);
                 }
-                return courseOfferingRepository.save(courseOffering);
-            }catch(Exception e){
-                log.error("Exception caught in create CourseOffering"+e);
+                courseOfferingRepository.save(courseOffering);
             }
+        }catch(Exception e){
+                log.error("Exception caught in create CourseOffering"+e);
         }
-        return exists.get();
     }
 
     @Override

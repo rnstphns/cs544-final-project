@@ -24,10 +24,11 @@ public class RegistrationClientController {
     }
     @PostMapping("/registration-events/latest")
     public ResponseEntity<?> registerStudent(@RequestBody RegistrationRequest registrationRequest){
+        Integer studentId = registrationRequest.getStudent().getStudentId();
         RegistrationRequest request = registrationGateway.registerStudent(registrationRequest);
         return new ResponseEntity<RegistrationRequest>(request, HttpStatus.CREATED);
     }
-    @GetMapping("/registrations/{studentId}")
+    @GetMapping("/registration-events/request/{studentId}")
     public ResponseEntity<?> getRegistrationsByStudent(@PathVariable("studentId") Integer studentId){
         Registrations registrations = registrationGateway.getRegistrationsByStudent(studentId);
         return new ResponseEntity<Registrations>(registrations, HttpStatus.OK);
@@ -40,6 +41,11 @@ public class RegistrationClientController {
         RegistrationEvent registrationEvent = registrationGateway.getRegistrationEventById(id);
         return new ResponseEntity<RegistrationEvent>(registrationEvent, HttpStatus.OK);
     }
+    @PostMapping("/registration-events/create")
+    public ResponseEntity<?> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
+        registrationGateway.createRegistrationEvent(registrationEvent);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
 
     //    PATCH /registration-events/{id}?processed=true
     @PatchMapping("/registration-events/{id}")
@@ -47,10 +53,6 @@ public class RegistrationClientController {
         RegistrationEvent registrationEvent = registrationGateway.processRegistrationEvent(id);
         return new ResponseEntity<>(HttpStatus.PROCESSING);
     }
-    @PostMapping("/registration-events/create")
-    public ResponseEntity<?> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
-        registrationGateway.createRegistrationEvent(registrationEvent);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
-    }
+
 
 }

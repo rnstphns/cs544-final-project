@@ -92,11 +92,8 @@ public class RegistrationEventController {
 
     @PostMapping("/course-offering")
     public ResponseEntity<?> createCourseOffering(@RequestBody CourseOffering courseOffering) {
-        try {
-            return ResponseEntity.ok(courseOfferingService.create(courseOffering));
-        } catch (DatabaseException e) {
-            return new ResponseEntity<>("Error saving CourseOffering:"+e.getMessage(), HttpStatus.SEE_OTHER);
-        }
+        courseOfferingService.create(courseOffering);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/registration-group")

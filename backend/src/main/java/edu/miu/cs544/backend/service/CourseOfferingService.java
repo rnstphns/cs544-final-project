@@ -11,6 +11,6 @@ public interface CourseOfferingService {
     List<CourseOffering> findAll ();
     CourseOffering findById(Long id);
     void delete(Long id);
-    CourseOffering create(CourseOffering courseOffering) throws DatabaseException;
+    void create(CourseOffering courseOffering) throws DatabaseException;
     boolean update(Long id, CourseOffering courseOffering);
 }
