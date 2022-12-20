@@ -3,6 +3,7 @@ package edu.miu.cs544.backend.web;
 
 import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.Student;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,14 @@ private StudentService studentServiceImpl;
     }
 
 @PostMapping("/addstudent")
-    public ResponseEntity<Void> addstudent(@RequestBody Student student){
-      studentServiceImpl.create(student);
-      return  new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> addstudent(@RequestBody Student student){
+    try {
+        studentServiceImpl.create(student);
+        return  new ResponseEntity<>(HttpStatus.CREATED);
+    } catch (DatabaseException e) {
+        return new ResponseEntity<>("Student is already in database", HttpStatus.SEE_OTHER);
+    }
+
 }
 @DeleteMapping("/deletebyid/{id}")
     public ResponseEntity<Void> deletestudent(Long id){

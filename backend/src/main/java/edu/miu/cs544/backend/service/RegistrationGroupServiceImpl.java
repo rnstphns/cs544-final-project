@@ -4,6 +4,7 @@ import edu.miu.cs544.backend.Repositories.RegistrationGroupRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.domain.Student;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService{
     }
 
     @Override
-    public RegistrationGroup create(RegistrationGroup registrationGroup) {
+    public RegistrationGroup create(RegistrationGroup registrationGroup) throws DatabaseException {
         Collection<Student> students = registrationGroup.getStudents();
         for(Student s: students){
             studentService.create(s);
