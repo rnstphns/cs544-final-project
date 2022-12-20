@@ -1,14 +1,13 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8Client.controllers;
 
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.RegistrationGateway;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.Registrations;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvent;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvents;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequest;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.*;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 public class RegistrationClientController {
@@ -34,14 +33,12 @@ public class RegistrationClientController {
     }
 
     //    sysadmin access:
-//    GET POST PUT DELETE /registration-events/{id}
     @GetMapping("/registration-events/{id}")
     public ResponseEntity<?> getRegistrationEventById(@PathVariable("id") Long id){
         RegistrationEvent registrationEvent = registrationGateway.getRegistrationEventById(id);
         return new ResponseEntity<RegistrationEvent>(registrationEvent, HttpStatus.OK);
     }
 
-    //    PATCH /registration-events/{id}?processed=true
     @PatchMapping("/registration-events/{id}")
     public ResponseEntity<?> processRegistrationEvent(@PathVariable("id") Long id){
         RegistrationEvent registrationEvent = registrationGateway.processRegistrationEvent(id);
@@ -51,6 +48,25 @@ public class RegistrationClientController {
     public ResponseEntity<?> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
         registrationGateway.createRegistrationEvent(registrationEvent);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+    @PutMapping("/update/{eventId}/{startDate}/{endDate}")
+    public ResponseEntity<?> updateEvent(@PathVariable long eventId, @PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
+        return registrationGateway.updateWindow(eventId,startDate,endDate);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<RegistrationEvents> getEvent(){
+        return ResponseEntity.ok(registrationGateway.getRegistrationEvents());
+    }
+
+    @GetMapping("/getbyid/{eventId}")
+    public ResponseEntity<RegistrationEvent> getEventById(@PathVariable Long eventId){
+        return ResponseEntity.ok(registrationGateway.getRegistrationEventById(eventId));
+    }
+
+    @PostMapping("/course-offering")
+    public ResponseEntity<CourseOffering> createCourseOffering(@RequestBody CourseOffering courseOffering){
+        return ResponseEntity.ok(registrationGateway.createCourseOffering(courseOffering));
     }
 
 }

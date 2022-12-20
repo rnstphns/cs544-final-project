@@ -6,11 +6,14 @@ import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEven
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvents;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 @Component
@@ -38,8 +41,6 @@ public class RegistrationGateway {
         return registrations;
     }
 
-//    sysadmin access:
-//    GET POST PUT DELETE /registration-events/{id} //GET and POST done
     public RegistrationEvent getRegistrationEventById(Long id){
         log.info("Sending GET to "+backendUrl+"/registration-events/"+id);
         return restTemplate.getForObject(backendUrl+"/registration-events/{id}", RegistrationEvent.class);
@@ -66,5 +67,12 @@ public class RegistrationGateway {
     public CourseOffering createCourseOffering(@RequestBody CourseOffering courseOffering){
         log.info("Sending POST to"+backendUrl+"/registration-events/course-offering");
         return  restTemplate.postForObject(backendUrl+"/registration-events/course-offering", courseOffering, CourseOffering.class);
+    }
+
+    public ResponseEntity<?> updateWindow(@PathVariable long eventId, @PathVariable LocalDate startDate, @PathVariable LocalDate endDate) {
+        String uri = backendUrl+String.format("/registration-events/update/{}/{}/{}", eventId, startDate,endDate);
+        log.info("Sending PUT to "+uri);
+        restTemplate.put(uri, RegistrationEvent.class);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

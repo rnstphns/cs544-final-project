@@ -52,7 +52,6 @@ public class RegistrationEventController {
         return ResponseEntity.ok(registrationEventService.getRegistrationEventById(eventId));
     }
 
-    //TODO TEST CODE :: DO WE NEED THIS IN FINAL IMPL
     @PostMapping("/course-offering")
     public ResponseEntity<CourseOffering> createCourseOffering(@RequestBody CourseOffering courseOffering){
         return ResponseEntity.ok(courseOfferingService.createCourseOffering(courseOffering));
