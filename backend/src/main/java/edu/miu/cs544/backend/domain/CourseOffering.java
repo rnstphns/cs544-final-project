@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,6 +30,7 @@ public class CourseOffering {
     private Collection<Faculty> faculty;
     private Integer availableSeats;
     private Integer capacity;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private RegistrationRequest registrationRequest;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<RegistrationRequest> registrationRequests;
+
 }

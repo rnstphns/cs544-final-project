@@ -37,13 +37,13 @@ private StudentService studentServiceImpl;
 
 }
 @DeleteMapping("/deletebyid/{id}")
-    public ResponseEntity<Void> deletestudent(Long id){
+    public ResponseEntity<Void> deletestudent(@PathVariable Long id){
         studentServiceImpl.delete(id);
         return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
 }
 
 @PutMapping("/update/{id}")
-    public  ResponseEntity<?> updateStudent(@RequestBody Student student , Long id){
+    public  ResponseEntity<?> updateStudent(@RequestBody Student student , @PathVariable Long id){
         return  ResponseEntity.ok(studentServiceImpl.update(id, student));
 }
 @GetMapping("/studentlist")

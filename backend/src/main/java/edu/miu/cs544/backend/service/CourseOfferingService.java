@@ -11,6 +11,8 @@ import java.util.List;
 public interface CourseOfferingService {
     List<CourseOffering> findAll ();
     CourseOffering findById(Long id);
+
+    CourseOffering findByCode(String code) throws DatabaseException;
     void delete(Long id);
     void create(CourseOffering courseOffering) throws DatabaseException;
 

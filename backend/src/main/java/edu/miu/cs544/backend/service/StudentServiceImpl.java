@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -21,6 +22,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student findById(Long id) {
         return studentRepository.findById(id).get();
+    }
+
+    @Override
+    public Student findByStudentId(Integer studentId) throws DatabaseException{
+        Optional<Student> s = studentRepository.findByStudentId(studentId);
+        if(s.isPresent()){
+            return s.get();
+        }else{
+            throw new DatabaseException("Student"+studentId+"is not in the database");
+        }
     }
 
     @Override

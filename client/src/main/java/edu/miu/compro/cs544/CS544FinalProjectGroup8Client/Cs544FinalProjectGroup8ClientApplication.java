@@ -1,6 +1,7 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8Client;
 
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.RegistrationGateway;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.StudentGateway;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.controllers.RegistrationClientController;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 	@Autowired
 	private RegistrationGateway gateway;
 
+	@Autowired
+	private StudentGateway studentGateway;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Cs544FinalProjectGroup8ClientApplication.class, args);
 	}
@@ -29,10 +33,11 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 	@Override
 	public void run(String... args) throws Exception {
 		ArrayList<Student> students = new ArrayList<Student>();
-		Address studentAddress = new Address("testing 2 events", "Fairfield", "52557", "IA", "USA");
+		Address studentAddress = new Address("1000 N 4th St", "Fairfield", "52557", "IA", "USA");
 		for (int i = 1; i <= 10; i++) {
 			Student s = new Student("Student"+i, "student"+i+"@miu.edu", studentAddress, i);
 			students.add(s);
+//			studentGateway.addstudent(s);
 		}
 		Faculty professor = new Faculty("Professor 2", "prof@miu.edu", studentAddress, "Tenured Professor");
 		Collection<Faculty> professors = new ArrayList<>();
@@ -43,18 +48,18 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
 		RegistrationGroup registrationGroup = new RegistrationGroup();
 		Collection<CourseOffering> courses = new ArrayList<>();
+//		gateway.createCourseOffering(eaDec);
 		courses.add(eaDec);
 		registrationGroup.setStudents(students);
 		registrationGroup.setCourses(courses);
+//		gateway.createRegistrationGroup(registrationGroup);
 		RegistrationEvent registrationEvent = new RegistrationEvent();
 		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
 		registrationGroups.add(registrationGroup);
 		registrationEvent.setRegistrationGroups(registrationGroups);
 		registrationEvent.setStartDate(LocalDate.of(2023,2,1));
 		registrationEvent.setEndDate(LocalDate.of(2023,2,28));
-		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
-		System.out.println(re);
-
+//		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
 
 		RegistrationRequest rr = new RegistrationRequest();
 		rr.setCourseList((ArrayList<CourseOffering>) courses);

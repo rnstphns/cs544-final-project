@@ -6,15 +6,18 @@ import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.domain.Student;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
+@Slf4j
 public class RegistrationGroupServiceImpl implements RegistrationGroupService{
 
     @Autowired
@@ -44,13 +47,19 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService{
     @Override
     public RegistrationGroup create(RegistrationGroup registrationGroup) throws DatabaseException {
         Collection<Student> students = registrationGroup.getStudents();
+        Collection<Student> foundStudents = new ArrayList<>();
         for(Student s: students){
-            studentService.create(s);
+            Student found = studentService.findByStudentId(s.getStudentId());
+            foundStudents.add(found);
         }
         Collection<CourseOffering> courses = registrationGroup.getCourses();
+        Collection<CourseOffering> foundCourses = new ArrayList<>();
         for(CourseOffering c: courses){
-            courseOfferingService.create(c);
+            CourseOffering found = courseOfferingService.findByCode(c.getCode());
+            foundCourses.add(found);
         }
+        registrationGroup.setStudents(foundStudents);
+        registrationGroup.setCourses(foundCourses);
         return repository.save(registrationGroup);
     }
 

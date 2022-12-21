@@ -2,6 +2,7 @@ package edu.miu.cs544.backend.service;
 
 
 import edu.miu.cs544.backend.domain.*;
+import edu.miu.cs544.backend.exceptions.DatabaseException;
 import edu.miu.cs544.backend.repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,16 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
+    public CourseOffering findByCode(String code) throws DatabaseException {
+        Optional<CourseOffering> found = courseOfferingRepository.findByCode(code);
+        if(found.isPresent()){
+            return found.get();
+        }else{
+            throw new DatabaseException("Course Offering "+code+" is not in the database!");
+        }
+    }
+
+    @Override
     public void delete(Long id) {
         courseOfferingRepository.deleteById(id);
     }
@@ -71,7 +82,9 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     public boolean updateRegistrationRequest(Long id, RegistrationRequest request){
         Optional<CourseOffering> found = courseOfferingRepository.findById(id);
         if(found.isPresent()){
-            found.get().setRegistrationRequest(request);
+            List<RegistrationRequest> requests = found.get().getRegistrationRequests();
+            requests.add(request);
+            found.get().setRegistrationRequests(requests);
             courseOfferingRepository.save(found.get());
             return true;
         }else

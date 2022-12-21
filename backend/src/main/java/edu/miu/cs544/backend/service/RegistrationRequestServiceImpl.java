@@ -41,7 +41,6 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
             Set<Long> offeringID = new HashSet<>();
             boolean savedSuccessfully = false;
             RegistrationRequest registrationRequestReturn = null;
-            Student student = studentRepository.findByStudentId(studentID).get();
             RegistrationEvent latestRegistrationEvent = registrationEventService.latest();
 
         if(isOpen()) {
@@ -60,12 +59,17 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
 
         }
         for(RegistrationRequest request : requests){
+            Student student = studentRepository.findByStudentId(studentID).get();
+            request.setStudent(student);
             List<CourseOffering> courseOfferings = request.getCourseList();
+            List<CourseOffering> validatedList = new ArrayList<>();
             for(CourseOffering course : courseOfferings){
-//                if(offeringID.contains(course.getId())){
-//                    courseOfferingService.updateRegistrationRequest(course.getId(), request);
-//                }
+                if(offeringID.contains(course.getId())){
+                    validatedList.add(course);
+                }
+                request.setCourseList(validatedList);
             }
+            registrationRequestRepository.save(request);
             savedSuccessfully = true;
         }
 

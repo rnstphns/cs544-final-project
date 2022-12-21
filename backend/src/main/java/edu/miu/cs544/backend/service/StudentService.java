@@ -10,6 +10,8 @@ public interface StudentService {
 
     Student findById(Long id);
 
+    Student findByStudentId(Integer studentId) throws DatabaseException;
+
     void delete(Long id);
 
     Student create(Student student) throws DatabaseException;
