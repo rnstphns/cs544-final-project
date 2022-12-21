@@ -37,7 +37,7 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		for (int i = 1; i <= 10; i++) {
 			Student s = new Student("Student"+i, "student"+i+"@miu.edu", studentAddress, i);
 			students.add(s);
-//			studentGateway.addstudent(s);
+			studentGateway.addstudent(s);
 		}
 		Faculty professor = new Faculty("Professor 2", "prof@miu.edu", studentAddress, "Tenured Professor");
 		Collection<Faculty> professors = new ArrayList<>();
@@ -48,18 +48,18 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
 		RegistrationGroup registrationGroup = new RegistrationGroup();
 		Collection<CourseOffering> courses = new ArrayList<>();
-//		gateway.createCourseOffering(eaDec);
+		gateway.createCourseOffering(eaDec);
 		courses.add(eaDec);
 		registrationGroup.setStudents(students);
 		registrationGroup.setCourses(courses);
-//		gateway.createRegistrationGroup(registrationGroup);
+		gateway.createRegistrationGroup(registrationGroup);
 		RegistrationEvent registrationEvent = new RegistrationEvent();
 		Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
 		registrationGroups.add(registrationGroup);
 		registrationEvent.setRegistrationGroups(registrationGroups);
 		registrationEvent.setStartDate(LocalDate.of(2023,2,1));
 		registrationEvent.setEndDate(LocalDate.of(2023,2,28));
-//		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
+		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
 
 		RegistrationRequest rr = new RegistrationRequest();
 		rr.setCourseList((ArrayList<CourseOffering>) courses);

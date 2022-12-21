@@ -30,7 +30,6 @@ public class CourseOffering {
     private Collection<Faculty> faculty;
     private Integer availableSeats;
     private Integer capacity;
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<RegistrationRequest> registrationRequests;
+
 
 }

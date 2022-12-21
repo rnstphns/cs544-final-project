@@ -38,7 +38,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
 
     @Override
     public boolean createRegistrationRequest(List<RegistrationRequest> requests, Integer studentID) throws EventNotOpenException, ObjectNotFoundException, DatabaseException {
-            Set<Long> offeringID = new HashSet<>();
+            Set<String> offeringCodes = new HashSet<>();
             boolean savedSuccessfully = false;
             RegistrationRequest registrationRequestReturn = null;
             RegistrationEvent latestRegistrationEvent = registrationEventService.latest();
@@ -52,20 +52,21 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
                 Collection<CourseOffering> courseOfferings = group.getCourses();
 
                 for(CourseOffering course : courseOfferings){
-                    offeringID.add(course.getId());
+                    offeringCodes.add(course.getCode());
 
                 }
             }
 
         }
         for(RegistrationRequest request : requests){
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+request.toString());
             Student student = studentRepository.findByStudentId(studentID).get();
             request.setStudent(student);
             List<CourseOffering> courseOfferings = request.getCourseList();
             List<CourseOffering> validatedList = new ArrayList<>();
             for(CourseOffering course : courseOfferings){
-                if(offeringID.contains(course.getId())){
-                    validatedList.add(course);
+                if(offeringCodes.contains(course.getCode())){
+                    validatedList.add(courseOfferingService.findByCode(course.getCode()));
                 }
                 request.setCourseList(validatedList);
             }

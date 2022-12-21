@@ -16,7 +16,6 @@ public interface CourseOfferingService {
     void delete(Long id);
     void create(CourseOffering courseOffering) throws DatabaseException;
 
-    boolean updateRegistrationRequest(Long id, RegistrationRequest request);
 
     boolean update(Long id, CourseOffering courseOffering);
 }

@@ -78,18 +78,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
                 log.error("Exception caught in create CourseOffering"+e);
         }
     }
-    @Override
-    public boolean updateRegistrationRequest(Long id, RegistrationRequest request){
-        Optional<CourseOffering> found = courseOfferingRepository.findById(id);
-        if(found.isPresent()){
-            List<RegistrationRequest> requests = found.get().getRegistrationRequests();
-            requests.add(request);
-            found.get().setRegistrationRequests(requests);
-            courseOfferingRepository.save(found.get());
-            return true;
-        }else
-            return false;
-    }
+
 
     @Override
     public boolean update(Long id, CourseOffering courseOffering) {

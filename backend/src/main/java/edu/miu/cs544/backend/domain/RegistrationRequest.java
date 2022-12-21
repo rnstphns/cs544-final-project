@@ -17,7 +17,8 @@ public class RegistrationRequest {
     private Long id;
     @OneToOne
     private Student student;
-    @OneToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
+    @JoinTable(name="request_course_offering_join_table")
     private List<CourseOffering> courseList;
 
 }
