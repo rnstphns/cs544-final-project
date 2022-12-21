@@ -8,7 +8,6 @@ import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,12 +24,11 @@ public class RegistrationClientController {
        RegistrationEvents registrationEvents = registrationGateway.getRegistrationEvents();
        return new ResponseEntity<RegistrationEvents>(registrationEvents, HttpStatus.OK);
     }
-    @PostMapping("/registration-events/latest")
-    public ResponseEntity<?> registerStudent(@RequestBody List<RegistrationRequest> registrationRequest){
-        Integer studentId = registrationRequest.get(0).getStudent().getStudentId();
-        registrationGateway.registerStudent(registrationRequest);
-        return new ResponseEntity<Boolean>(HttpStatus.CREATED);
+    @PostMapping("/registration-events/request/{studentId}")
+    public ResponseEntity<?> registerStudent(@PathVariable Integer studentId, @RequestBody List<RegistrationRequest> registrationRequest){
+        return registrationGateway.sendRegistrationRequest(registrationRequest);
     }
+    //TODO check path on this one
     @GetMapping("/registration-events/request/{studentId}")
     public ResponseEntity<?> getRegistrationsByStudent(@PathVariable("studentId") Integer studentId){
         Registrations registrations = registrationGateway.getRegistrationsByStudent(studentId);

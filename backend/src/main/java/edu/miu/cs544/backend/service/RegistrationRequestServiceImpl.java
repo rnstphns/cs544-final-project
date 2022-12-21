@@ -62,9 +62,9 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
         for(RegistrationRequest request : requests){
             List<CourseOffering> courseOfferings = request.getCourseList();
             for(CourseOffering course : courseOfferings){
-                if(offeringID.contains(course.getId())){
-                    courseOfferingService.updateRegistrationRequest(course.getId(), request);
-                }
+//                if(offeringID.contains(course.getId())){
+//                    courseOfferingService.updateRegistrationRequest(course.getId(), request);
+//                }
             }
             savedSuccessfully = true;
         }

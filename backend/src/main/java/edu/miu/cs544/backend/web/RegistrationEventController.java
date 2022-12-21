@@ -42,9 +42,13 @@ public class RegistrationEventController {
     }
 
     @PostMapping("/request/{studentId}")
-    public ResponseEntity<?> sendRequest(@RequestBody List<RegistrationRequest> requests, @PathVariable Integer studentId) {
+    public ResponseEntity<?> saveRequest(@RequestBody List<RegistrationRequest> requests, @PathVariable Integer studentId) {
         try{
-            return new ResponseEntity<>(requestService.createRegistrationRequest(requests, studentId), HttpStatus.OK);
+            boolean success = requestService.createRegistrationRequest(requests, studentId);
+            if (success) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            else return new ResponseEntity<>("Registration request failed to save.", HttpStatus.BAD_REQUEST);
         }catch(EventNotOpenException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }
@@ -85,7 +89,7 @@ public class RegistrationEventController {
        return ResponseEntity.ok(registrationEventService.getRegistrationEvents());
     }
 
-    @GetMapping("/getbyid/{eventId}")
+    @GetMapping("/{eventId}")
     public ResponseEntity<RegistrationEvent> getEventById(@PathVariable Long eventId){
         return ResponseEntity.ok(registrationEventService.getRegistrationEventById(eventId));
     }

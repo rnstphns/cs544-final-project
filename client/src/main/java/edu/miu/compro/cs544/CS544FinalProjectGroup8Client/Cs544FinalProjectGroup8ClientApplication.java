@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @SpringBootApplication
 public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunner {
@@ -63,7 +62,7 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		rrs.add(rr);
 		Student s = students.get(0);
 		rr.setStudent(s);
-		gateway.registerStudent(rrs);
+		gateway.sendRegistrationRequest(rrs);
 		gateway.getRegistrationEventById(1L);
 		gateway.getRegistrationEvents();
 	}

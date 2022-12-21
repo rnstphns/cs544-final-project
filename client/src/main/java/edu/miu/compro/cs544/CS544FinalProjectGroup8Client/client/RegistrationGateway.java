@@ -24,13 +24,13 @@ public class RegistrationGateway {
         RegistrationEvents registrationEvents = restTemplate.getForObject(backendUrl+"/registration-events/latest", RegistrationEvents.class);
         return registrationEvents;
     }
-    public ResponseEntity<?> registerStudent(@RequestBody List<RegistrationRequest> registrationRequest){
+    public ResponseEntity<?> sendRegistrationRequest(@RequestBody List<RegistrationRequest> registrationRequest){
         String studentId = registrationRequest.get(0).getStudent().getStudentId().toString();
         String url = backendUrl+"/registration-events/request/"+studentId;
         log.info("Sending POST to "+ url);
         return restTemplate.postForObject(url, registrationRequest, ResponseEntity.class);
     }
-    //TODO be sure this calls a method to find registration by studentid
+
     public Registrations getRegistrationsByStudent(Integer studentId){
         log.info("Sending GET to "+backendUrl+"/registrations/"+studentId);
         Registrations registrations = restTemplate.getForObject(backendUrl+"/registrations/{studentId}", Registrations.class);
@@ -39,13 +39,15 @@ public class RegistrationGateway {
 
 //    sysadmin access:
     public RegistrationEvent getRegistrationEventById(Long id){
-        log.info("Sending GET to "+backendUrl+"/registration-events/"+id);
-        return restTemplate.getForObject(backendUrl+"/registration-events/{id}", RegistrationEvent.class);
+        String url = backendUrl+"/registration-events/"+id;
+        log.info("Sending GET to "+url);
+        return restTemplate.getForObject(url, RegistrationEvent.class);
     }
-
+    //TODO what needs to be passed here? surely not a Random
     public RegistrationEvent processRegistrationEvent(Long id){
+        String url = backendUrl+"/registration-events/"+id+"?processed=true";
         log.info("Sending PATCH to "+backendUrl+"/registration-events/"+id+"?processed=true");
-        return restTemplate.patchForObject(backendUrl+"/registration-events/{id}?processed=true", new Random(), RegistrationEvent.class);
+        return restTemplate.patchForObject(url, new Random(), RegistrationEvent.class);
     }
 
     public ResponseEntity<Void> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
