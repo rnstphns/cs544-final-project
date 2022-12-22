@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication
-@EnableKafka
+//@EnableKafka
 public class BackendApplication implements CommandLineRunner {
 
     @Autowired

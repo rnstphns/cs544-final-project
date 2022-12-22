@@ -1,13 +1,13 @@
 package edu.miu.cs544.compro.backend.service;
 
-import edu.miu.cs544.backend.domain.*;
+
 import edu.miu.cs544.compro.backend.domain.*;
 import edu.miu.cs544.compro.backend.exceptions.DatabaseException;
+import edu.miu.cs544.compro.backend.exceptions.EventNotOpenException;
+import edu.miu.cs544.compro.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.compro.backend.repositories.RegistrationEventRepository;
 import edu.miu.cs544.compro.backend.repositories.RegistrationRequestRepository;
 import edu.miu.cs544.compro.backend.repositories.StudentRepository;
-import edu.miu.cs544.compro.backend.exceptions.EventNotOpenException;
-import edu.miu.cs544.compro.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.compro.backend.util.RegistrationEventUtilities;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication
-@EnableKafka
+//@EnableKafka
 public class Cs544FinalProjectGroup8EmailServiceApplication {
 
 	public static void main(String[] args) {

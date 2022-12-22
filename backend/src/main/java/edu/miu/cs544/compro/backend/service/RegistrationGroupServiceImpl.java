@@ -1,11 +1,11 @@
 package edu.miu.cs544.compro.backend.service;
 
-import edu.miu.cs544.compro.backend.exceptions.ObjectNotFoundException;
-import edu.miu.cs544.compro.backend.repositories.RegistrationGroupRepository;
 import edu.miu.cs544.compro.backend.domain.CourseOffering;
 import edu.miu.cs544.compro.backend.domain.RegistrationGroup;
 import edu.miu.cs544.compro.backend.domain.Student;
 import edu.miu.cs544.compro.backend.exceptions.DatabaseException;
+import edu.miu.cs544.compro.backend.exceptions.ObjectNotFoundException;
+import edu.miu.cs544.compro.backend.repositories.RegistrationGroupRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
