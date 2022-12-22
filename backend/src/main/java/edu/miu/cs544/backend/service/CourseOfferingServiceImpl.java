@@ -88,21 +88,30 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Override
     public boolean update(Long id, CourseOffering courseOffering) {
-        Optional<CourseOffering> offering = courseOfferingRepository.findById(id);
-        if(offering.isPresent()){
-            AcademicBlock block = courseOffering.getAcademicBlock();
-            academicBlockRepository.save(block);
-            Course course = courseOffering.getCourse();
-            courseRepository.save(course);
-            Collection<Faculty> faculty = courseOffering.getFaculty();
-            for(Faculty f: faculty) {
-                facultyRepository.save(f);
+        if (courseOffering != null) {
+            if(id != null) {
+                Optional<CourseOffering> offering = courseOfferingRepository.findById(id);
+                if (offering.isPresent()) {
+                    AcademicBlock block = courseOffering.getAcademicBlock();
+                    academicBlockRepository.save(block);
+                    Course course = courseOffering.getCourse();
+                    courseRepository.save(course);
+                    Collection<Faculty> faculty = courseOffering.getFaculty();
+                    for (Faculty f : faculty) {
+                        facultyRepository.save(f);
+                    }
+                    courseOfferingRepository.save(offering.get());
+                    return true;
+                } else
+                    return false;
+            }else{
+                log.error("Null ID was passed");
+                return false;
             }
-            courseOfferingRepository.save(offering.get());
-            return true;
-        }
-        else
+        }else{
+            log.error("Null courseOffering was passed");
             return false;
+        }
     }
 
 

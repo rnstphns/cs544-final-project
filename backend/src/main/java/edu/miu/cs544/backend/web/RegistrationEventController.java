@@ -13,6 +13,7 @@ import edu.miu.cs544.backend.service.RegistrationEventService;
 import edu.miu.cs544.backend.service.RegistrationGroupService;
 import edu.miu.cs544.backend.service.RegistrationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -114,9 +115,9 @@ public class RegistrationEventController {
 
     }
 
-   @PatchMapping("{id}?processed=true")
-    public ResponseEntity<?> processRegistrationEvent(@PathVariable Long id){
-        boolean processed = registrationEventService.processEvent(id);
+   @PostMapping("{id}")
+    public ResponseEntity<?> processRegistrationEvent(@PathVariable Long id, @RequestParam boolean processed){
+        boolean processedSuccess = registrationEventService.processEvent(id);
         if(processed)
             return ResponseEntity.ok().build();
         else return ResponseEntity.internalServerError().build();

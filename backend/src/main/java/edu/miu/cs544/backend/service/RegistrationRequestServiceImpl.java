@@ -2,26 +2,31 @@ package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.*;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.repositories.RegistrationEventRepository;
 import edu.miu.cs544.backend.repositories.RegistrationRequestRepository;
 import edu.miu.cs544.backend.repositories.StudentRepository;
 import edu.miu.cs544.backend.exceptions.EventNotOpenException;
 import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.util.RegistrationEventUtilities;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
 @Transactional
+@Slf4j
 public class RegistrationRequestServiceImpl implements RegistrationRequestService{
 
     @Autowired
     private RegistrationRequestRepository registrationRequestRepository;
 
     @Autowired
-    private RegistrationEventService registrationEventService;
+    private RegistrationEventRepository registrationEventRepository;
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
@@ -45,7 +50,15 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
             Set<String> offeringCodes = new HashSet<>();
             boolean savedSuccessfully = false;
             RegistrationRequest registrationRequestReturn = null;
-            RegistrationEvent latestRegistrationEvent = registrationEventService.latest();
+
+            LocalDate localDateNow = LocalDate.now();
+            List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
+            RegistrationEvent latestRegistrationEvent = new RegistrationEvent();
+            try {
+                latestRegistrationEvent = registrationEventList.get(0);
+            } catch (IndexOutOfBoundsException e) {
+                log.error("No events in the database");
+            }
 
         if(RegistrationEventUtilities.isOpen(latestRegistrationEvent)) {
 

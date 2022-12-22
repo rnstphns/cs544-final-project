@@ -133,15 +133,24 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
 
     private Registration processRegistration(RegistrationRequest rr, CourseOffering co) throws DatabaseException {
         Registration registration = new Registration();
-        registration.setStudent(rr.getStudent());
-        if(co.getAvailableSeats()>0) {
-            Integer seats = co.getAvailableSeats();
-            seats--;
-            co.setAvailableSeats(seats);
-            courseOfferingService.update(co.getId(), co);
-        }else throw new DatabaseException("Course Offering"+co.getCode()+" is full!");
-        registration.getCourseList().add(co);
-        registrationService.createRegistration(registration);
+        if(co != null) {
+            if (rr != null) {
+                registration.setStudent(rr.getStudent());
+                if (co.getAvailableSeats() > 0) {
+                    Integer seats = co.getAvailableSeats();
+                    seats--;
+                    co.setAvailableSeats(seats);
+                    courseOfferingService.update(co.getId(), co);
+                } else throw new DatabaseException("Course Offering" + co.getCode() + " is full!");
+                registration.getCourseList().add(co);
+                registrationService.createRegistration(registration);
+                return registration;
+            } else {
+                log.error("null registration request passed");
+            }
+        }else{
+            log.error("null courseoffering was passed");
+        }
         return registration;
     }
 

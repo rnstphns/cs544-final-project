@@ -7,13 +7,14 @@ import edu.miu.cs544.backend.repositories.RegistrationRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Registration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class RegistrationServiceImpl implements RegistrationService{
 
     @Autowired

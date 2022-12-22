@@ -64,8 +64,8 @@ public class RegistrationClientController {
         return registrationGateway.createRegistrationGroup(registrationGroup);
     }
 
-    @PatchMapping("{id}?processed=true")
-    public ResponseEntity<?> processRegistrationEvent(@PathVariable Long id){
+    @PostMapping("registration-events/{id}")
+    public ResponseEntity<?> processRegistrationEvent(@PathVariable Long id, @RequestParam boolean processed){
        return registrationGateway.processRegistrationEvent(id);
     }
 
