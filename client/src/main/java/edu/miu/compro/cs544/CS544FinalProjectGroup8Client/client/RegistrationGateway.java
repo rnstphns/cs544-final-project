@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +20,7 @@ public class RegistrationGateway {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public RegistrationEvents getRegistrationEvents(){
+    public RegistrationEvents getLatestRegistrationEvent(){
         log.info("Sending GET to "+backendUrl+"/registration-events/latest");
         RegistrationEvents registrationEvents = restTemplate.getForObject(backendUrl+"/registration-events/latest", RegistrationEvents.class);
         return registrationEvents;
@@ -67,4 +68,9 @@ public class RegistrationGateway {
         return restTemplate.postForEntity(uri, registrationGroup, RegistrationGroup.class);
     }
 
+    public Collection<RegistrationEvent> getRegistrationEvents() {
+        String uri = backendUrl+"/registration-events/get";
+        log.info("Sending GET to "+uri);
+        return restTemplate.getForObject(uri, Collection.class);
+    }
 }

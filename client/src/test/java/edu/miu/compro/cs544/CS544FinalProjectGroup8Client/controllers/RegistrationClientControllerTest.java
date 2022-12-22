@@ -74,8 +74,8 @@ class RegistrationClientControllerTest {
     }
     @Test
     void getRegistrationEvents() throws Exception{
-        Mockito.when(registrationGateway.getRegistrationEvents())
-                .thenReturn(new ResponseEntity<RegistrationEvents>(events, HttpStatus.OK).getBody());
+//        Mockito.when(registrationGateway.getRegistrationEvents())
+//                .thenReturn(new ResponseEntity<List<RegistrationEvent>>(events.getRegistrationEventCollection(), HttpStatus.OK).getBody());
         mock.perform(MockMvcRequestBuilders.get("/registration-events/latest"))
                 .andExpect(status().isOk());
         //TODO check object json
