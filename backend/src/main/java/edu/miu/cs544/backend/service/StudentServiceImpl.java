@@ -1,5 +1,6 @@
 package edu.miu.cs544.backend.service;
 
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.StudentRepository;
 import edu.miu.cs544.backend.domain.Student;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
@@ -20,8 +21,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findById(Long id) {
-        return studentRepository.findById(id).get();
+    public Student findById(Long id) throws ObjectNotFoundException {
+        try{
+            return studentRepository.findById(id).get();
+        }catch(Exception e){
+            throw new ObjectNotFoundException("Student is not in database");
+        }
     }
 
     @Override

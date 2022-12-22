@@ -2,12 +2,13 @@ package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.Registration;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 
 import java.util.Collection;
 
 public interface RegistrationService {
 
-    public Registration getRegistrationById(Long id);
+    public Registration getRegistrationById(Long id) throws ObjectNotFoundException;
     public Collection<Registration> getRegistrationsByStudentId(Integer studentId);
     public Collection<Registration> getRegistrations() ;
     public Registration createRegistration(Registration registration) throws DatabaseException;

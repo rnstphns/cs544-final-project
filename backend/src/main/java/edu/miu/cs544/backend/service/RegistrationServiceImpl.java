@@ -1,6 +1,7 @@
 package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.RegistrationRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Registration;
@@ -18,8 +19,12 @@ public class RegistrationServiceImpl implements RegistrationService{
     @Autowired
     private CourseOfferingService courseOfferingService;
     @Override
-    public Registration getRegistrationById(Long id) {
-        return registrationRepository.findById(id).get();
+    public Registration getRegistrationById(Long id) throws ObjectNotFoundException {
+        try {
+            return registrationRepository.findById(id).get();
+        }catch(Exception e){
+            throw new ObjectNotFoundException("Registration not found"+e);
+        }
     }
 
     //TODO - filter registrations by student id
