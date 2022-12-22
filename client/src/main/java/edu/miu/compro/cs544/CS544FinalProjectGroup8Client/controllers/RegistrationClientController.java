@@ -2,9 +2,7 @@ package edu.miu.compro.cs544.CS544FinalProjectGroup8Client.controllers;
 
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.RegistrationGateway;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.Registrations;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvent;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvents;
-import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationRequest;
+import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +26,7 @@ public class RegistrationClientController {
     public ResponseEntity<?> registerStudent(@PathVariable Integer studentId, @RequestBody List<RegistrationRequest> registrationRequest){
         return registrationGateway.sendRegistrationRequest(registrationRequest);
     }
-    //TODO check path on this one
+
     @GetMapping("/registration-events/request/{studentId}")
     public ResponseEntity<?> getRegistrationsByStudent(@PathVariable("studentId") Integer studentId){
         Registrations registrations = registrationGateway.getRegistrationsByStudent(studentId);
@@ -55,5 +53,14 @@ public class RegistrationClientController {
         return new ResponseEntity<>(HttpStatus.PROCESSING);
     }
 
+    @PostMapping("registration-events/course-offering")
+    public ResponseEntity<?> createCourseOffering(@RequestBody CourseOffering courseOffering) {
+        return registrationGateway.createCourseOffering(courseOffering);
+    }
+
+    @PostMapping("registration-events/registration-group")
+    public ResponseEntity<?> createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
+        return registrationGateway.createRegistrationGroup(registrationGroup);
+    }
 
 }

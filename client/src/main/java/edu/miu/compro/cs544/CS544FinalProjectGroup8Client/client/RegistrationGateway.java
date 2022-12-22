@@ -50,21 +50,21 @@ public class RegistrationGateway {
         return restTemplate.patchForObject(url, new Random(), RegistrationEvent.class);
     }
 
-    public ResponseEntity<Void> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
+    public ResponseEntity<?> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){
         String uri = backendUrl+"/registration-events/create";
         log.info("Sending POST to "+uri+" with body " + registrationEvent);
         return restTemplate.postForObject(uri, registrationEvent, ResponseEntity.class);
     }
 
-    public CourseOffering createCourseOffering(@RequestBody CourseOffering courseOffering){
+    public ResponseEntity<?>  createCourseOffering(@RequestBody CourseOffering courseOffering){
         log.info("Sending POST to"+backendUrl+"/registration-events/course-offering");
-        return  restTemplate.postForObject(backendUrl+"/registration-events/course-offering", courseOffering, CourseOffering.class);
+        return  restTemplate.postForEntity(backendUrl+"/registration-events/course-offering", courseOffering, CourseOffering.class);
     }
 
-    public RegistrationGroup createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
+    public ResponseEntity<?>  createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
         String uri = backendUrl+"/registration-events/registration-group";
         log.info("Sending POST to "+uri);
-        return restTemplate.postForObject(uri, registrationGroup, RegistrationGroup.class);
+        return restTemplate.postForEntity(uri, registrationGroup, RegistrationGroup.class);
     }
 
 }

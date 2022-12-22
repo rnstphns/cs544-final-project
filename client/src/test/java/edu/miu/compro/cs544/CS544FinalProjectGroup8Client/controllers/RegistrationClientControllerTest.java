@@ -37,7 +37,7 @@ class RegistrationClientControllerTest {
     Faculty professor = new Faculty("Professor Professerson", "prof@miu.edu", studentAddress, "Tenured Professor");
     Collection<Faculty> professors = new ArrayList<>();
     //add professor to list
-    AcademicBlock decBlock = new AcademicBlock("2022-12A-12D", "December 2022", "Fall", LocalDate.of(2022, 11, 28), LocalDate.of(2022, 12, 22));
+    AcademicBlock decBlock = new AcademicBlock(111L,"2022-12A-12D", "December 2022", "Fall", LocalDate.of(2022, 11, 28), LocalDate.of(2022, 12, 22));
     Course ea = new Course("CS544", "Enterprise Architecture");
     String eaCode = ea.getCode()+decBlock.getCode()+"PP";
     CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);

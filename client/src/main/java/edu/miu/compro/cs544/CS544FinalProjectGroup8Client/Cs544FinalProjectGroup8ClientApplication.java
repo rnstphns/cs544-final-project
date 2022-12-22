@@ -43,7 +43,7 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		Faculty professor = new Faculty("Professor 2", "prof@miu.edu", studentAddress, "Tenured Professor");
 		Collection<Faculty> professors = new ArrayList<>();
 		professors.add(professor);
-		AcademicBlock decBlock = new AcademicBlock(111L, "2022-12A-12D", "December 2022", "Fall", LocalDate.of(2022, 11, 28), LocalDate.of(2022, 12, 22));
+		AcademicBlock decBlock = new AcademicBlock(999L, "2022-12A-12D", "December 2022", "Fall", LocalDate.of(2022, 11, 28), LocalDate.of(2022, 12, 22));
 		Course ea = new Course("CS544", "Enterprise Architecture");
 		String eaCode = ea.getCode()+decBlock.getCode()+"PP";
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
