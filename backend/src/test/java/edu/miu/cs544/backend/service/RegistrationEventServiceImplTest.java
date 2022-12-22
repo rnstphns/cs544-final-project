@@ -14,6 +14,7 @@ import edu.miu.cs544.backend.domain.RegistrationEvent;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.domain.Student;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.RegistrationEventRepository;
 
 import java.time.LocalDate;
@@ -48,7 +49,7 @@ public class RegistrationEventServiceImplTest {
      * Method under test: {@link RegistrationEventServiceImpl#getRegistrationEventById(long)}
      */
     @Test
-    public void testGetRegistrationEventById() {
+    public void testGetRegistrationEventById() throws ObjectNotFoundException {
         RegistrationEvent registrationEvent = new RegistrationEvent();
         registrationEvent.setEndDate(LocalDate.ofEpochDay(1L));
         registrationEvent.setId(123L);
@@ -60,42 +61,6 @@ public class RegistrationEventServiceImplTest {
         verify(registrationEventRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link RegistrationEventServiceImpl#getRegistrationEventById(long)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testGetRegistrationEventById2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.util.NoSuchElementException: No value present
-        //       at java.util.Optional.get(Optional.java:143)
-        //       at edu.miu.cs544.backend.service.RegistrationEventServiceImpl.getRegistrationEventById(RegistrationEventServiceImpl.java:35)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(registrationEventRepository.findById((Long) any())).thenReturn(Optional.empty());
-        registrationEventServiceImpl.getRegistrationEventById(123L);
-    }
-
-    /**
-     * Method under test: {@link RegistrationEventServiceImpl#getRegistrationEventById(long)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testGetRegistrationEventById3() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.IndexOutOfBoundsException
-        //       at edu.miu.cs544.backend.service.RegistrationEventServiceImpl.getRegistrationEventById(RegistrationEventServiceImpl.java:35)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(registrationEventRepository.findById((Long) any())).thenThrow(new IndexOutOfBoundsException());
-        registrationEventServiceImpl.getRegistrationEventById(123L);
-    }
 
     /**
      * Method under test: {@link RegistrationEventServiceImpl#getRegistrationEvents()}

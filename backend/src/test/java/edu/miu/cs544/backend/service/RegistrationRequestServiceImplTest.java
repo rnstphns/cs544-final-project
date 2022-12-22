@@ -54,35 +54,6 @@ public class RegistrationRequestServiceImplTest {
     @MockBean
     private StudentRepository studentRepository;
 
-    /**
-     * Method under test: {@link RegistrationRequestServiceImpl#getRegistrationRequestById(Long)}
-     */
-    @Test
-    public void testGetRegistrationRequestById() {
-        RegistrationRequest registrationRequest = new RegistrationRequest();
-        when(registrationRequestRepository.findById((Long) any())).thenReturn(Optional.of(registrationRequest));
-        assertSame(registrationRequest, registrationRequestServiceImpl.getRegistrationRequestById(123L));
-        verify(registrationRequestRepository).findById((Long) any());
-    }
-
-    /**
-     * Method under test: {@link RegistrationRequestServiceImpl#getRegistrationRequestById(Long)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testGetRegistrationRequestById2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.util.NoSuchElementException: No value present
-        //       at java.util.Optional.get(Optional.java:143)
-        //       at edu.miu.cs544.backend.service.RegistrationRequestServiceImpl.getRegistrationRequestById(RegistrationRequestServiceImpl.java:31)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(registrationRequestRepository.findById((Long) any())).thenReturn(Optional.empty());
-        registrationRequestServiceImpl.getRegistrationRequestById(123L);
-    }
 
     /**
      * Method under test: {@link RegistrationRequestServiceImpl#getRegistrationRequests()}
@@ -137,62 +108,8 @@ public class RegistrationRequestServiceImplTest {
         verify(registrationEventService).latest();
     }
 
-    /**
-     * Method under test: {@link RegistrationRequestServiceImpl#createRegistrationRequest(List, Integer)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testCreateRegistrationRequest3()
-            throws DatabaseException, EventNotOpenException, ObjectNotFoundException {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "java.lang.Iterable.iterator()" because "iterable" is null
-        //       at edu.miu.cs544.backend.service.RegistrationRequestServiceImpl.createRegistrationRequest(RegistrationRequestServiceImpl.java:67)
-        //   See https://diff.blue/R013 to resolve this issue.
 
-        RegistrationEvent registrationEvent = new RegistrationEvent();
-        registrationEvent.setEndDate(LocalDate.ofEpochDay(1L));
-        registrationEvent.setId(123L);
-        registrationEvent.setRegistrationGroups(new ArrayList<>());
-        registrationEvent.setStartDate(LocalDate.ofEpochDay(1L));
-        when(registrationEventService.latest()).thenReturn(registrationEvent);
-        when(studentRepository.findByStudentId((Integer) any())).thenReturn(Optional.of(new Student()));
 
-        ArrayList<RegistrationRequest> registrationRequestList = new ArrayList<>();
-        registrationRequestList.add(new RegistrationRequest());
-        registrationRequestServiceImpl.createRegistrationRequest(registrationRequestList, 1);
-    }
-
-    /**
-     * Method under test: {@link RegistrationRequestServiceImpl#createRegistrationRequest(List, Integer)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testCreateRegistrationRequest4()
-            throws DatabaseException, EventNotOpenException, ObjectNotFoundException {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.util.NoSuchElementException: No value present
-        //       at java.util.Optional.get(Optional.java:143)
-        //       at edu.miu.cs544.backend.service.RegistrationRequestServiceImpl.createRegistrationRequest(RegistrationRequestServiceImpl.java:63)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        RegistrationEvent registrationEvent = new RegistrationEvent();
-        registrationEvent.setEndDate(LocalDate.ofEpochDay(1L));
-        registrationEvent.setId(123L);
-        registrationEvent.setRegistrationGroups(new ArrayList<>());
-        registrationEvent.setStartDate(LocalDate.ofEpochDay(1L));
-        when(registrationEventService.latest()).thenReturn(registrationEvent);
-        when(studentRepository.findByStudentId((Integer) any())).thenReturn(Optional.empty());
-
-        ArrayList<RegistrationRequest> registrationRequestList = new ArrayList<>();
-        registrationRequestList.add(new RegistrationRequest());
-        registrationRequestServiceImpl.createRegistrationRequest(registrationRequestList, 1);
-    }
 
     /**
      * Method under test: {@link RegistrationRequestServiceImpl#createRegistrationRequest(List, Integer)}
@@ -335,17 +252,6 @@ public class RegistrationRequestServiceImplTest {
         assertTrue(registrationRequestServiceImpl.getRegistrationRequests().isEmpty());
     }
 
-    /**
-     * Methods under test:
-     *
-     * <ul>
-     *   <li>default or parameterless constructor of {@link RegistrationRequestServiceImpl}
-     *   <li>{@link RegistrationRequestServiceImpl#isOpen()}
-     * </ul>
-     */
-    @Test
-    public void testConstructor() {
-        assertTrue((new RegistrationRequestServiceImpl()).isOpen());
-    }
+
 }
 

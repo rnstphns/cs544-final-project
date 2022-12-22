@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Course {
 
-    private String code; //TODO validate code?
+    private String code;
     private String description;
 }

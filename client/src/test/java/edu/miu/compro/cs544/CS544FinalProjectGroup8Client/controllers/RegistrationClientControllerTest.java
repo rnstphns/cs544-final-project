@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {RegistrationClientController.class})
 @RunWith(SpringRunner.class)
 @WebMvcTest(RegistrationClientController.class)
-class RegistrationClientControllerTest {
+public class RegistrationClientControllerTest {
 
     @Autowired
     private RegistrationClientController registrationClientController;
@@ -71,6 +71,25 @@ class RegistrationClientControllerTest {
     RegistrationEvent registrationEvent = new RegistrationEvent();
     //populate event
     RegistrationEvents events = new RegistrationEvents();
+
+    /**
+     * Method under test: {@link RegistrationClientController#createRegistrationEvent(RegistrationEvent)}
+     */
+    @org.junit.Test
+    @Ignore
+    public void testCreateRegistrationEvent() throws Exception {
+        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.post("/registration-events/create")
+                .contentType(MediaType.APPLICATION_JSON);
+        LocalDate endDate = LocalDate.of(2023,1,31);
+
+        RegistrationEvent registrationEvent = new RegistrationEvent();
+        registrationEvent.setEndDate(endDate);
+        registrationEvent.setRegistrationGroups(new ArrayList<>());
+        registrationEvent.setStartDate(LocalDate.of(2023,1,31));
+        MockHttpServletRequestBuilder requestBuilder = contentTypeResult
+                .content((new ObjectMapper()).writeValueAsString(registrationEvent));
+        MockMvcBuilders.standaloneSetup(registrationClientController).build().perform(requestBuilder);
+    }
 
     /**
      * Method under test: {@link RegistrationClientController#getLatestRegistrationEvent()}
@@ -234,32 +253,6 @@ class RegistrationClientControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(102));
     }
 
-    @BeforeEach
-    void setUp() {
-        //Set up test RegistrationEvent Object
-        //for loop generate students
-        for (int i = 1; i <= 10; i++) {
-            Student s = new Student("Student" + i, "student" + i + "@miu.edu", studentAddress, i);
-            students.add(s);
-        }
-        //add professor to list
-        professors.add(professor);
-        //populate registration group
-        Collection<CourseOffering> courses = new ArrayList<>();
-        courses.add(eaDec);
-        registrationGroup.setStudents(students);
-        registrationGroup.setCourses(courses);
-        //populate event
-        Collection<RegistrationGroup> registrationGroups = new ArrayList<>();
-        registrationGroups.add(registrationGroup);
-        registrationEvent.setRegistrationGroups(registrationGroups);
-        registrationEvent.setStartDate(LocalDate.of(2023, 1, 1));
-        registrationEvent.setEndDate(LocalDate.of(2023, 1, 31));
-        //populate events object
-        ArrayList<RegistrationEvent> list = new ArrayList<>();
-        list.add(registrationEvent);
-        events.setRegistrationEventCollection(list);
-    }
 
     /**
      * Method under test: {@link RegistrationClientController#createCourseOffering(CourseOffering)}
@@ -308,68 +301,6 @@ class RegistrationClientControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(100));
     }
 
-    @Test
-    void getRegistrationEvents() throws Exception {
-//        Mockito.when(registrationGateway.getRegistrationEvents())
-//                .thenReturn(new ResponseEntity<List<RegistrationEvent>>(events.getRegistrationEventCollection(), HttpStatus.OK).getBody());
-        mock.perform(MockMvcRequestBuilders.get("/registration-events/latest"))
-                .andExpect(status().isOk());
-        //TODO check object json
-    }
-
-    @Test
-    void registerStudent() throws Exception {
-
-    }
-
-    @Test
-    void getRegistrationsByStudent() throws Exception {
-
-    }
-
-    @Test
-    void getRegistrationEventById() throws Exception {
-    }
-
-    @Test
-    void processRegistrationEvent() throws Exception {
-    }
-
-    /**
-     * Method under test: {@link RegistrationClientController#createRegistrationEvent(RegistrationEvent)}
-     */
-    @org.junit.Test
-    @Ignore("TODO: Complete this test")
-    public void testCreateRegistrationEvent() throws Exception {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Java 8 date/time type `java.time.LocalDate` not supported by default: add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling (through reference chain: edu.miu.compro.cs544.CS544FinalProjectGroup8Client.model.RegistrationEvent["startDate"])
-        //       at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77)
-        //       at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1300)
-        //       at com.fasterxml.jackson.databind.ser.impl.UnsupportedTypeSerializer.serialize(UnsupportedTypeSerializer.java:35)
-        //       at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:728)
-        //       at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:774)
-        //       at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178)
-        //       at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480)
-        //       at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319)
-        //       at com.fasterxml.jackson.databind.ObjectMapper._writeValueAndClose(ObjectMapper.java:4568)
-        //       at com.fasterxml.jackson.databind.ObjectMapper.writeValueAsString(ObjectMapper.java:3821)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.post("/registration-events/create")
-                .contentType(MediaType.APPLICATION_JSON);
-        LocalDate endDate = LocalDate.ofEpochDay(1L);
-
-        RegistrationEvent registrationEvent = new RegistrationEvent();
-        registrationEvent.setEndDate(endDate);
-        registrationEvent.setRegistrationGroups(new ArrayList<>());
-        registrationEvent.setStartDate(LocalDate.ofEpochDay(1L));
-        MockHttpServletRequestBuilder requestBuilder = contentTypeResult
-                .content((new ObjectMapper()).writeValueAsString(registrationEvent));
-        MockMvcBuilders.standaloneSetup(registrationClientController).build().perform(requestBuilder);
-    }
 
     /**
      * Method under test: {@link RegistrationClientController#registerStudent(Integer, List)}

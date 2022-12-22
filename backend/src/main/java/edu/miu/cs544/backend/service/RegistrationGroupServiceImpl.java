@@ -1,5 +1,6 @@
 package edu.miu.cs544.backend.service;
 
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.RegistrationGroupRepository;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.RegistrationGroup;
@@ -35,8 +36,11 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService{
     }
 
     @Override
-    public RegistrationGroup findById(Long id) {
-        return repository.findById(id).get();
+    public RegistrationGroup findById(Long id) throws ObjectNotFoundException {
+        Optional<RegistrationGroup> found = repository.findById(id);
+        if(found.isPresent())
+            return found.get();
+        else throw new ObjectNotFoundException("RegistrationGroup is not in the database");
     }
 
     @Override

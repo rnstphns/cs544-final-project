@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RegistrationRequestService {
 
-    public RegistrationRequest getRegistrationRequestById(Long id);
+    public RegistrationRequest getRegistrationRequestById(Long id) throws ObjectNotFoundException;
     public Collection<RegistrationRequest> getRegistrationRequests();
 
     boolean createRegistrationRequest(List<RegistrationRequest> requests, Integer studentID) throws EventNotOpenException, ObjectNotFoundException, DatabaseException;

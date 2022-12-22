@@ -2,6 +2,7 @@ package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.RegistrationGroup;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public interface RegistrationGroupService {
 
     List<RegistrationGroup> findAll();
 
-    RegistrationGroup findById(Long id);
+    RegistrationGroup findById(Long id) throws ObjectNotFoundException;
 
     void delete(Long id);
 

@@ -22,11 +22,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findById(Long id) throws ObjectNotFoundException {
-        try{
-            return studentRepository.findById(id).get();
-        }catch(Exception e){
-            throw new ObjectNotFoundException("Student is not in database");
-        }
+            Optional<Student> s = studentRepository.findById(id);
+            if(s.isPresent())
+                return s.get();
+            else throw new ObjectNotFoundException("Student is not in database");
+
     }
 
     @Override

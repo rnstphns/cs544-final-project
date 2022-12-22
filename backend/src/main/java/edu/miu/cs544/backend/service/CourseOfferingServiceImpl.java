@@ -3,12 +3,14 @@ package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.*;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.plaf.ColorUIResource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -38,8 +40,12 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
-    public CourseOffering findById(Long id) {
-        return courseOfferingRepository.findById(id).get();
+    public CourseOffering findById(Long id) throws ObjectNotFoundException {
+        Optional<CourseOffering> found = courseOfferingRepository.findById(id);
+        if(found.isPresent())
+            return found.get();
+        else throw new ObjectNotFoundException("CourseOffering is not in database");
+
     }
 
     @Override

@@ -6,6 +6,7 @@ import edu.miu.cs544.backend.repositories.RegistrationRequestRepository;
 import edu.miu.cs544.backend.repositories.StudentRepository;
 import edu.miu.cs544.backend.exceptions.EventNotOpenException;
 import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
+import edu.miu.cs544.backend.util.RegistrationEventUtilities;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,11 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     private CourseOfferingService courseOfferingService;
 
     @Override
-    public RegistrationRequest getRegistrationRequestById(Long id) {
-        return registrationRequestRepository.findById(id).get();
+    public RegistrationRequest getRegistrationRequestById(Long id) throws ObjectNotFoundException {
+        Optional<RegistrationRequest> found =registrationRequestRepository.findById(id);
+        if(found.isPresent())
+            return found.get();
+        else throw new ObjectNotFoundException("Registration request is not in the databse");
     }
 
     @Override
@@ -43,7 +47,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
             RegistrationRequest registrationRequestReturn = null;
             RegistrationEvent latestRegistrationEvent = registrationEventService.latest();
 
-        if(isOpen()) {
+        if(RegistrationEventUtilities.isOpen(latestRegistrationEvent)) {
 
             Collection<RegistrationGroup> registrationGroups = latestRegistrationEvent.getRegistrationGroups();
 
@@ -89,18 +93,6 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
         registrationRequestRepository.deleteById(id);
     }
 
-//    protected boolean isOpen(){
-//        LocalDate now = LocalDate.now();
-//        RegistrationEvent currentEvent = registrationEventService.latest();
-//        if(now.isAfter(ChronoLocalDate.from(currentEvent.getStartDate().atStartOfDay()).minus(Period.ofDays(1))) &&
-//                now.isBefore(ChronoLocalDate.from(currentEvent.getEndDate().atTime(LocalTime.parse("11:59pm")))))
-//            return true;
-//        else return false;
-//    }
-        //TODO turned off real check for testing purposes
-    protected boolean isOpen(){
-        return true;
-    }
 
 
 

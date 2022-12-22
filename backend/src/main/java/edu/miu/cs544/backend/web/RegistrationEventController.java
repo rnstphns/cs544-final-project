@@ -90,8 +90,12 @@ public class RegistrationEventController {
     }
 
     @GetMapping("/{eventId}")
-    public ResponseEntity<RegistrationEvent> getEventById(@PathVariable Long eventId){
-        return ResponseEntity.ok(registrationEventService.getRegistrationEventById(eventId));
+    public ResponseEntity<?> getEventById(@PathVariable Long eventId){
+        try {
+            return ResponseEntity.ok(registrationEventService.getRegistrationEventById(eventId));
+        } catch (ObjectNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/course-offering")

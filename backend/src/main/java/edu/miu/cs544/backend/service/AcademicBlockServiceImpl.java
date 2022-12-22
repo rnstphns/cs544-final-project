@@ -2,11 +2,13 @@ package edu.miu.cs544.backend.service;
 
 import edu.miu.cs544.backend.domain.AcademicBlock;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.AcademicBlockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AcademicBlockServiceImpl implements AcademicBlockService{
@@ -19,8 +21,13 @@ public class AcademicBlockServiceImpl implements AcademicBlockService{
     }
 
     @Override
-    public AcademicBlock findById(Long id) {
-        return repository.findById(id).get();
+    public AcademicBlock findById(Long id) throws ObjectNotFoundException {
+        Optional<AcademicBlock> found = repository.findById(id);
+        if(found.isPresent())
+            return found.get();
+        else
+            throw new ObjectNotFoundException("AcademicBlock is not in database");
+
     }
 
     @Override

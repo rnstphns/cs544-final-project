@@ -16,9 +16,9 @@ public class AcademicBlock {
     @Id
     private Long id;
     @Column(length = 30, nullable = false, unique = true)
-    private String code; //TODO validate code? 2022-12A-12D
-    private String name; //TODO validate name? December 2022
-    private String semester; //TODO validate? Spring
+    private String code;
+    private String name;
+    private String semester;
     private LocalDate startDate;
     private LocalDate endDate;
 

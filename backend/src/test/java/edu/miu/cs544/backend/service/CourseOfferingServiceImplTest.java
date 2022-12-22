@@ -14,6 +14,7 @@ import edu.miu.cs544.backend.domain.Course;
 import edu.miu.cs544.backend.domain.CourseOffering;
 import edu.miu.cs544.backend.domain.Faculty;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
 import edu.miu.cs544.backend.repositories.AcademicBlockRepository;
 import edu.miu.cs544.backend.repositories.CourseOfferingRepository;
 import edu.miu.cs544.backend.repositories.CourseRepository;
@@ -78,31 +79,13 @@ public class CourseOfferingServiceImplTest {
      * Method under test: {@link CourseOfferingServiceImpl#findById(Long)}
      */
     @Test
-    public void testFindById() {
+    public void testFindById() throws ObjectNotFoundException {
         CourseOffering courseOffering = new CourseOffering();
         when(courseOfferingRepository.findById((Long) any())).thenReturn(Optional.of(courseOffering));
         assertSame(courseOffering, courseOfferingServiceImpl.findById(123L));
         verify(courseOfferingRepository).findById((Long) any());
     }
 
-    /**
-     * Method under test: {@link CourseOfferingServiceImpl#findById(Long)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testFindById2() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.util.NoSuchElementException: No value present
-        //       at java.util.Optional.get(Optional.java:143)
-        //       at edu.miu.cs544.backend.service.CourseOfferingServiceImpl.findById(CourseOfferingServiceImpl.java:42)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(courseOfferingRepository.findById((Long) any())).thenReturn(Optional.empty());
-        courseOfferingServiceImpl.findById(123L);
-    }
 
     /**
      * Method under test: {@link CourseOfferingServiceImpl#findByCode(String)}
@@ -223,25 +206,6 @@ public class CourseOfferingServiceImplTest {
         assertTrue(courseOfferingServiceImpl.findAll().isEmpty());
     }
 
-    /**
-     * Method under test: {@link CourseOfferingServiceImpl#update(Long, CourseOffering)}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testUpdate() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException: Cannot invoke "java.lang.Iterable.iterator()" because "iterable" is null
-        //       at edu.miu.cs544.backend.service.CourseOfferingServiceImpl.update(CourseOfferingServiceImpl.java:92)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        when(academicBlockRepository.save((AcademicBlock) any())).thenReturn(new AcademicBlock());
-        when(courseOfferingRepository.findById((Long) any())).thenReturn(Optional.of(new CourseOffering()));
-        when(courseRepository.save((Course) any())).thenReturn(new Course());
-        courseOfferingServiceImpl.update(123L, new CourseOffering());
-    }
 
     /**
      * Method under test: {@link CourseOfferingServiceImpl#update(Long, CourseOffering)}

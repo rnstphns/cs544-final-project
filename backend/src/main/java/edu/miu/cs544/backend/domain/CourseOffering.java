@@ -20,7 +20,7 @@ public class CourseOffering {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 30, nullable = false, unique = true)
-    private String code; //TODO validate code? S544-2022-12A-12D-XX
+    private String code;
     @OneToOne
     @PrimaryKeyJoinColumn
     private AcademicBlock academicBlock;

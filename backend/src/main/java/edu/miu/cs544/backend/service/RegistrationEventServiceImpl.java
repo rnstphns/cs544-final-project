@@ -1,11 +1,12 @@
 package edu.miu.cs544.backend.service;
 
 
+import edu.miu.cs544.backend.domain.*;
 import edu.miu.cs544.backend.exceptions.DatabaseException;
+import edu.miu.cs544.backend.exceptions.ObjectNotFoundException;
+import edu.miu.cs544.backend.kafka.EmailKafkaSender;
 import edu.miu.cs544.backend.repositories.RegistrationEventRepository;
-import edu.miu.cs544.backend.domain.RegistrationEvent;
-import edu.miu.cs544.backend.domain.RegistrationGroup;
-import edu.miu.cs544.backend.domain.Student;
+import edu.miu.cs544.backend.util.RegistrationEventUtilities;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,23 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     @Autowired
     private RegistrationEventRepository registrationEventRepository;
 
-    //TODO email student when their registration is saved
-    //TODO fix update methods
+    @Autowired
+    private RegistrationRequestService registrationRequestService;
+
+    @Autowired
+    private RegistrationService registrationService;
+
+    @Autowired
+    private CourseOfferingService courseOfferingService;
+    @Autowired
+    private EmailKafkaSender emailKafkaSender;
 
     @Override
-    public RegistrationEvent getRegistrationEventById(long id) {
-        return registrationEventRepository.findById(id).get();
+    public RegistrationEvent getRegistrationEventById(long id) throws ObjectNotFoundException {
+            Optional<RegistrationEvent> found = registrationEventRepository.findById(id);
+            if(found.isPresent())
+                return found.get();
+            else throw new ObjectNotFoundException("RegistrationEvent is not in database");
     }
 
     @Override
@@ -83,4 +95,57 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         returnEvent.setRegistrationGroups(groups);
         return returnEvent;
     }
+
+    @Override
+    public boolean processEvent() {
+        boolean processedSuccessfully = false;
+        //get latest event with all students
+        List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
+        RegistrationEvent latestEvent = new RegistrationEvent();
+        try {
+            latestEvent = registrationEventList.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            log.error("No events in the database");
+        }
+        if(RegistrationEventUtilities.isOpen(latestEvent)) {
+            Collection<RegistrationGroup> allRegistrationGroups = latestEvent.getRegistrationGroups();
+            for (RegistrationGroup r : allRegistrationGroups) {
+                Collection<CourseOffering> allCourseOfferings = r.getCourses();
+                for (CourseOffering co : allCourseOfferings) {
+                    Collection<RegistrationRequest> requests = registrationRequestService.getRegistrationRequests();
+                    for (RegistrationRequest rr : requests) {
+                        if (co.getAvailableSeats() > 0 && rr.getCourseList().contains(co)) {
+                            try {
+                                Registration registration = processRegistration(rr, co);
+                            } catch (DatabaseException de) {
+                                log.error("Registration for student " + rr.getStudent() + " has failed"+de.getMessage());
+                            }
+                        }
+                    }
+                }
+                Collection<Student> allStudents = r.getStudents();
+                for(Student s : allStudents){
+                    emailKafkaSender.send(s);
+                }
+            }
+            processedSuccessfully = true;
+        }
+        return processedSuccessfully;
+    }
+
+    private Registration processRegistration(RegistrationRequest rr, CourseOffering co) throws DatabaseException {
+        Registration registration = new Registration();
+        registration.setStudent(rr.getStudent());
+        if(co.getAvailableSeats()>0) {
+            Integer seats = co.getAvailableSeats();
+            seats--;
+            co.setAvailableSeats(seats);
+            courseOfferingService.update(co.getId(), co);
+        }else throw new DatabaseException("Course Offering"+co.getCode()+" is full!");
+        registration.getCourseList().add(co);
+        registrationService.createRegistration(registration);
+        return registration;
+    }
+
+
 }
