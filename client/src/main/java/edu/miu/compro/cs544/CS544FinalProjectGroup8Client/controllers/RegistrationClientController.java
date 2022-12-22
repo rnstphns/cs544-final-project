@@ -18,7 +18,6 @@ public class RegistrationClientController {
     private RegistrationGateway registrationGateway;
 
     //Student access:
-    //TODO Returns empty array
     @GetMapping("/registration-events/latest")
     public ResponseEntity<?> getLatestRegistrationEvent(){
        RegistrationEvents registrationEvents = registrationGateway.getLatestRegistrationEvent();

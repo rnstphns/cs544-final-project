@@ -1,0 +1,423 @@
+POST localhost:8081/students/addstudent
+body : (raw JSON)
+{
+    "name": "christopher",
+    "email": "chris@miu.edu",
+    "studentId": 14156,
+    "address": {
+        "street": "1234 N 5th St",
+        "city": "miami",
+        "postCode": "342557",
+        "stateProvince": "florida",
+        "countryRegion": "USA"
+    }
+}
+----------------------------------
+POST localhost:8081/students/addstudent
+
+{
+    "name": "bhristopher",
+    "email": "bhris@miu.edu",
+    "studentId": 24156,
+    "address": {
+        "street": "1234 N 5th St",
+        "city": "miami",
+        "postCode": "342557",
+        "stateProvince": "florida",
+        "countryRegion": "USA"
+    }
+}
+----------------------------------------
+POST localhost:8081/registration-events/course-offering
+
+{
+    "code": "CS4762022-12t-12t",
+    "availableSeats": 50,
+    "capacity": 50,
+    "academicBlock": {
+        "id": 111,
+        "code": "2022-12t-12t",
+        "name": "December 2022",
+        "semester": "Fall",
+        "startDate": "2022-11-28",
+        "endDate": "2022-12-22"
+    },
+    "course": {
+        "code": "CS476",
+        "description": "software analysis"
+    },
+    "faculty": [
+        {
+            "name": "Professor hawi",
+            "email": "hawi@miu.edu",
+            "title": "assistanceprofessor",
+            "address": {
+                "street": "1000 N 4th St",
+                "city": "Fairfield",
+                "postCode": "52557",
+                "stateProvince": "IA",
+                "countryRegion": "USA"
+            }
+        },
+        {
+            "name": "Professor terry",
+            "email": "trry@miu.edu",
+            "title": "assistanceprofessor",
+            "address": {
+                "street": "1000 N 4th St",
+                "city": "Fairfield",
+                "postCode": "52557",
+                "stateProvince": "IA",
+                "countryRegion": "USA"
+            }
+        },
+        {
+            "name": "Professor timothy",
+            "email": "timothy@miu.edu",
+            "title": "assistanceprofessor",
+            "address": {
+                "street": "1000 N 4th St",
+                "city": "Fairfield",
+                "postCode": "52557",
+                "stateProvince": "IA",
+                "countryRegion": "USA"
+            }
+        }
+    ],
+    "courses": [
+        {
+            "code": "CS4762022-12t-12t",
+            "availableSeats": 50,
+            "capacity": 50,
+            "academicBlock": {
+                "id": 111,
+                "code": "2022-12t-12t",
+                "name": "December 2022",
+                "semester": "Fall",
+                "startDate": "2022-11-28",
+                "endDate": "2022-12-22"
+            },
+            "course": {
+                "code": "CS476",
+                "description": "software analysis"
+            },
+            "faculty": [
+                {
+                    "name": "Professor hawi",
+                    "email": "hawi@miu.edu",
+                    "title": "assistanceprofessor",
+                    "address": {
+                        "street": "1000 N 4th St",
+                        "city": "Fairfield",
+                        "postCode": "52557",
+                        "stateProvince": "IA",
+                        "countryRegion": "USA"
+                    }
+                },
+                {
+                    "name": "Professor terry",
+                    "email": "trry@miu.edu",
+                    "title": "assistanceprofessor",
+                    "address": {
+                        "street": "1000 N 4th St",
+                        "city": "Fairfield",
+                        "postCode": "52557",
+                        "stateProvince": "IA",
+                        "countryRegion": "USA"
+                    }
+                },
+                {
+                    "name": "Professor timothy",
+                    "email": "timothy@miu.edu",
+                    "title": "assistanceprofessor",
+                    "address": {
+                        "street": "1000 N 4th St",
+                        "city": "Fairfield",
+                        "postCode": "52557",
+                        "stateProvince": "IA",
+                        "countryRegion": "USA"
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+-------------------------------------------------
+POST localhost:8081/registration-events/registration-group
+
+{
+    "students": [
+        {
+            "name": "christopher",
+            "email": "chris@miu.edu",
+            "studentId": 14156,
+            "address": {
+                "street": "1234 N 5th St",
+                "city": "miami",
+                "postCode": "342557",
+                "stateProvince": "florida",
+                "countryRegion": "USA"
+            }
+        },
+        {
+            "name": "bhristopher",
+            "email": "bhris@miu.edu",
+            "studentId": 24156,
+            "address": {
+                "street": "1234 N 5th St",
+                "city": "miami",
+                "postCode": "342557",
+                "stateProvince": "florida",
+                "countryRegion": "USA"
+            }
+        }
+    ],
+    "courses": [
+        {
+            "code": "CS4762022-12t-12t",
+            "availableSeats": 50,
+            "capacity": 50,
+            "academicBlock": {
+                "id": 111,
+                "code": "2022-12t-12t",
+                "name": "December 2022",
+                "semester": "Fall",
+                "startDate": "2022-11-28",
+                "endDate": "2022-12-22"
+            },
+            "course": {
+                "code": "CS476",
+                "description": "software analysis"
+            },
+            "faculty": [
+                {
+                    "name": "Professor hawi",
+                    "email": "hawi@miu.edu",
+                    "title": "assistanceprofessor",
+                    "address": {
+                        "street": "1000 N 4th St",
+                        "city": "Fairfield",
+                        "postCode": "52557",
+                        "stateProvince": "IA",
+                        "countryRegion": "USA"
+                    }
+                },
+                {
+                    "name": "Professor terry",
+                    "email": "trry@miu.edu",
+                    "title": "assistanceprofessor",
+                    "address": {
+                        "street": "1000 N 4th St",
+                        "city": "Fairfield",
+                        "postCode": "52557",
+                        "stateProvince": "IA",
+                        "countryRegion": "USA"
+                    }
+                },
+                {
+                    "name": "Professor timothy",
+                    "email": "timothy@miu.edu",
+                    "title": "assistanceprofessor",
+                    "address": {
+                        "street": "1000 N 4th St",
+                        "city": "Fairfield",
+                        "postCode": "52557",
+                        "stateProvince": "IA",
+                        "countryRegion": "USA"
+                    }
+                }
+            ]
+        }
+    ]
+}
+========================================================
+POST localhost:8081/registration-events/create
+
+{
+    "startDate": "2023-01-01",
+    "endDate": "2023-01-31",
+    "registrationGroups": [
+        {
+            "students": [
+                {
+                    "name": "christopher",
+                    "email": "chris@miu.edu",
+                    "studentId": 14156,
+                    "address": {
+                        "street": "1234 N 5th St",
+                        "city": "miami",
+                        "postCode": "342557",
+                        "stateProvince": "florida",
+                        "countryRegion": "USA"
+                    }
+                },
+                {
+                    "name": "bhristopher",
+                    "email": "bhris@miu.edu",
+                    "studentId": 24156,
+                    "address": {
+                        "street": "1234 N 5th St",
+                        "city": "miami",
+                        "postCode": "342557",
+                        "stateProvince": "florida",
+                        "countryRegion": "USA"
+                    }
+                }
+            ],
+            "courses": [
+                {
+                    "code": "CS4762022-12t-12t",
+                    "availableSeats": 50,
+                    "capacity": 50,
+                    "academicBlock": {
+                        "id": 111,
+                        "code": "2022-12t-12t",
+                        "name": "December 2022",
+                        "semester": "Fall",
+                        "startDate": "2022-11-28",
+                        "endDate": "2022-12-22"
+                    },
+                    "course": {
+                        "code": "CS476",
+                        "description": "software analysis"
+                    },
+                    "faculty": [
+                        {
+                            "name": "Professor hawi",
+                            "email": "hawi@miu.edu",
+                            "title": "assistanceprofessor",
+                            "address": {
+                                "street": "1000 N 4th St",
+                                "city": "Fairfield",
+                                "postCode": "52557",
+                                "stateProvince": "IA",
+                                "countryRegion": "USA"
+                            }
+                        },
+                        {
+                            "name": "Professor terry",
+                            "email": "trry@miu.edu",
+                            "title": "assistanceprofessor",
+                            "address": {
+                                "street": "1000 N 4th St",
+                                "city": "Fairfield",
+                                "postCode": "52557",
+                                "stateProvince": "IA",
+                                "countryRegion": "USA"
+                            }
+                        },
+                        {
+                            "name": "Professor timothy",
+                            "email": "timothy@miu.edu",
+                            "title": "assistanceprofessor",
+                            "address": {
+                                "street": "1000 N 4th St",
+                                "city": "Fairfield",
+                                "postCode": "52557",
+                                "stateProvince": "IA",
+                                "countryRegion": "USA"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+---------------------------------------------------------
+POST localhost:8081/registration-events/request/14156
+
+[
+    {
+        "student": {
+            "name": "christopher",
+            "email": "chris@miu.edu",
+            "studentId": 14156,
+            "address": {
+                "street": "1234 N 5th St",
+                "city": "miami",
+                "postCode": "342557",
+                "stateProvince": "florida",
+                "countryRegion": "USA"
+            }
+        },
+        "courseList": [
+            {
+                "code": "CS4762022-12t-12t",
+                "availableSeats": 50,
+                "capacity": 50,
+                "academicBlock": {
+                    "id": 111,
+                    "code": "2022-12t-12t",
+                    "name": "December 2022",
+                    "semester": "Fall",
+                    "startDate": "2022-11-28",
+                    "endDate": "2022-12-22"
+                },
+                "course": {
+                    "code": "CS476",
+                    "description": "software analysis"
+                },
+                "faculty": [
+                    {
+                        "name": "Professor hawi",
+                        "email": "hawi@miu.edu",
+                        "title": "assistanceprofessor",
+                        "address": {
+                            "street": "1000 N 4th St",
+                            "city": "Fairfield",
+                            "postCode": "52557",
+                            "stateProvince": "IA",
+                            "countryRegion": "USA"
+                        }
+                    },
+                    {
+                        "name": "Professor terry",
+                        "email": "trry@miu.edu",
+                        "title": "assistanceprofessor",
+                        "address": {
+                            "street": "1000 N 4th St",
+                            "city": "Fairfield",
+                            "postCode": "52557",
+                            "stateProvince": "IA",
+                            "countryRegion": "USA"
+                        }
+                    },
+                    {
+                        "name": "Professor timothy",
+                        "email": "timothy@miu.edu",
+                        "title": "assistanceprofessor",
+                        "address": {
+                            "street": "1000 N 4th St",
+                            "city": "Fairfield",
+                            "postCode": "52557",
+                            "stateProvince": "IA",
+                            "countryRegion": "USA"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]
+
+------------------------------------------------------------
+GET http://localhost:8081/registration-events/get
+
+------------------------------------------------------
+
+GET http://localhost:8081/registration-events/latest
+
+--------------------------------------------------------
+
+POST http://localhost:8081/registration-events/1?processed=true
+process event (non working 12/22)
+
+-------------------------------------------------------------
+
+GET localhost:8081/students/14156/registrations
+
+
+
+
