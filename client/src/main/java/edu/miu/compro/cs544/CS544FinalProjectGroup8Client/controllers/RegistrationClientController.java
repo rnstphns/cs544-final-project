@@ -53,12 +53,6 @@ public class RegistrationClientController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    //    PATCH /registration-events/{id}?processed=true
-    @PatchMapping("/registration-events/{id}")
-    public ResponseEntity<?> processRegistrationEvent(@PathVariable("id") Long id){
-        RegistrationEvent registrationEvent = registrationGateway.processRegistrationEvent(id);
-        return new ResponseEntity<>(HttpStatus.PROCESSING);
-    }
 
     @PostMapping("registration-events/course-offering")
     public ResponseEntity<?> createCourseOffering(@RequestBody CourseOffering courseOffering) {
@@ -68,6 +62,11 @@ public class RegistrationClientController {
     @PostMapping("registration-events/registration-group")
     public ResponseEntity<?> createRegistrationGroup(@RequestBody RegistrationGroup registrationGroup){
         return registrationGateway.createRegistrationGroup(registrationGroup);
+    }
+
+    @PatchMapping("{id}?processed=true")
+    public ResponseEntity<?> processRegistrationEvent(@PathVariable Long id){
+       return registrationGateway.processRegistrationEvent(id);
     }
 
 }

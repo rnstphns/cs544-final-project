@@ -114,4 +114,12 @@ public class RegistrationEventController {
 
     }
 
+   @PatchMapping("{id}?processed=true")
+    public ResponseEntity<?> processRegistrationEvent(@PathVariable Long id){
+        boolean processed = registrationEventService.processEvent(id);
+        if(processed)
+            return ResponseEntity.ok().build();
+        else return ResponseEntity.internalServerError().build();
+   }
+
 }

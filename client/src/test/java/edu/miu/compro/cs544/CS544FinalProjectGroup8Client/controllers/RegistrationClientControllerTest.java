@@ -236,22 +236,7 @@ public class RegistrationClientControllerTest {
         actualPerformResult.andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
-    /**
-     * Method under test: {@link RegistrationClientController#processRegistrationEvent(Long)}
-     */
-    @org.junit.Test
-    public void testProcessRegistrationEvent() throws Exception {
-        RegistrationEvent registrationEvent = new RegistrationEvent();
-        registrationEvent.setEndDate(LocalDate.ofEpochDay(1L));
-        registrationEvent.setRegistrationGroups(new ArrayList<>());
-        registrationEvent.setStartDate(LocalDate.ofEpochDay(1L));
-        when(registrationGateway.processRegistrationEvent((Long) any())).thenReturn(registrationEvent);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/registration-events/{id}", 123L);
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(registrationClientController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(102));
-    }
+
 
 
     /**

@@ -97,16 +97,10 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
 
     @Override
-    public boolean processEvent() {
+    public boolean processEvent(Long id) {
         boolean processedSuccessfully = false;
-        //get latest event with all students
-        List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
-        RegistrationEvent latestEvent = new RegistrationEvent();
         try {
-            latestEvent = registrationEventList.get(0);
-        } catch (IndexOutOfBoundsException e) {
-            log.error("No events in the database");
-        }
+            RegistrationEvent latestEvent = getRegistrationEventById(id);
         if(RegistrationEventUtilities.isOpen(latestEvent)) {
             Collection<RegistrationGroup> allRegistrationGroups = latestEvent.getRegistrationGroups();
             for (RegistrationGroup r : allRegistrationGroups) {
@@ -129,6 +123,10 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
                 }
             }
             processedSuccessfully = true;
+        }
+
+        }catch(ObjectNotFoundException e){
+            log.error("Caught request to process registrationEvent"+id+"that is not in database"+e.getMessage());
         }
         return processedSuccessfully;
     }

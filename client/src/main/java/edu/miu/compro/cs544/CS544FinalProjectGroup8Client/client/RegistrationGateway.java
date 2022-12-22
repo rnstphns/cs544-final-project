@@ -44,11 +44,10 @@ public class RegistrationGateway {
         log.info("Sending GET to "+url);
         return restTemplate.getForObject(url, RegistrationEvent.class);
     }
-    //TODO what needs to be passed here? surely not a Random
-    public RegistrationEvent processRegistrationEvent(Long id){
+      public ResponseEntity<?> processRegistrationEvent(Long id){
         String url = backendUrl+"/registration-events/"+id+"?processed=true";
         log.info("Sending PATCH to "+backendUrl+"/registration-events/"+id+"?processed=true");
-        return restTemplate.patchForObject(url, new Random(), RegistrationEvent.class);
+        return restTemplate.postForEntity(url, new Random(), ResponseEntity.class);
     }
 
     public ResponseEntity<?> createRegistrationEvent(@RequestBody RegistrationEvent registrationEvent){

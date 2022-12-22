@@ -20,6 +20,6 @@ public interface RegistrationEventService {
     public RegistrationEvent updateWindow(Long id, LocalDate start, LocalDate end);
     public RegistrationEvent latest();
 
-    public boolean processEvent();
+    public boolean processEvent(Long id);
 
 }
