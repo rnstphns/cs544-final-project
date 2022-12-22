@@ -7,7 +7,5 @@ import java.util.Collection;
 
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
 
-   //TODO query?
-
 }
 
