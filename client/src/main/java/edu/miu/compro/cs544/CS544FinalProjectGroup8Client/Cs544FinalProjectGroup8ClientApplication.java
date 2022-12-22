@@ -1,5 +1,6 @@
 package edu.miu.compro.cs544.CS544FinalProjectGroup8Client;
 
+import com.google.gson.Gson;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.RegistrationGateway;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.client.StudentGateway;
 import edu.miu.compro.cs544.CS544FinalProjectGroup8Client.controllers.RegistrationClientController;
@@ -42,7 +43,7 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		Faculty professor = new Faculty("Professor 2", "prof@miu.edu", studentAddress, "Tenured Professor");
 		Collection<Faculty> professors = new ArrayList<>();
 		professors.add(professor);
-		AcademicBlock decBlock = new AcademicBlock("2022-12A-12D", "December 2022", "Fall", LocalDate.of(2022, 11, 28), LocalDate.of(2022, 12, 22));
+		AcademicBlock decBlock = new AcademicBlock(111L, "2022-12A-12D", "December 2022", "Fall", LocalDate.of(2022, 11, 28), LocalDate.of(2022, 12, 22));
 		Course ea = new Course("CS544", "Enterprise Architecture");
 		String eaCode = ea.getCode()+decBlock.getCode()+"PP";
 		CourseOffering eaDec = new CourseOffering(eaCode, decBlock, ea,  professors, 50, 50);
@@ -59,7 +60,7 @@ public class Cs544FinalProjectGroup8ClientApplication implements CommandLineRunn
 		registrationEvent.setRegistrationGroups(registrationGroups);
 		registrationEvent.setStartDate(LocalDate.of(2023,2,1));
 		registrationEvent.setEndDate(LocalDate.of(2023,2,28));
-		ResponseEntity<?> re = gateway.createRegistrationEvent(registrationEvent);
+		gateway.createRegistrationEvent(registrationEvent);
 
 		RegistrationRequest rr = new RegistrationRequest();
 		rr.setCourseList((ArrayList<CourseOffering>) courses);

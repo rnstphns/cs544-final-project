@@ -6,19 +6,18 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 
 
 @Data
 @NoArgsConstructor
-public class RegistrationEvent {
+public class RegistrationEvent implements Serializable {
 
     @FutureOrPresent
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate startDate;
     @Future
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate endDate;
     private Collection<RegistrationGroup> registrationGroups;
 }

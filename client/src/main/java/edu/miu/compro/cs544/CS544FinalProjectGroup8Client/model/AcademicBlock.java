@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class AcademicBlock {
 
-
+    private Long id;
     private String code;//2022-12A-12D
     private String name; // December 2022
     private String semester; //season
