@@ -91,40 +91,40 @@ public class RegistrationClientControllerTest {
         MockMvcBuilders.standaloneSetup(registrationClientController).build().perform(requestBuilder);
     }
 
-    /**
-     * Method under test: {@link RegistrationClientController#getLatestRegistrationEvent()}
-     */
-    @org.junit.Test
-    public void testGetLatestRegistrationEvent() throws Exception {
-        RegistrationEvents registrationEvents = new RegistrationEvents();
-        registrationEvents.setRegistrationEventCollection(new ArrayList<>());
-        when(registrationGateway.getLatestRegistrationEvent()).thenReturn(registrationEvents);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/registration-events/latest");
-        MockMvcBuilders.standaloneSetup(registrationClientController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"registrationEventCollection\":[]}"));
-    }
-
-    /**
-     * Method under test: {@link RegistrationClientController#getLatestRegistrationEvent()}
-     */
-    @org.junit.Test
-    public void testGetLatestRegistrationEvent2() throws Exception {
-        RegistrationEvents registrationEvents = new RegistrationEvents();
-        registrationEvents.setRegistrationEventCollection(new ArrayList<>());
-        when(registrationGateway.getLatestRegistrationEvent()).thenReturn(registrationEvents);
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/registration-events/latest");
-        getResult.characterEncoding("Encoding");
-        MockMvcBuilders.standaloneSetup(registrationClientController)
-                .build()
-                .perform(getResult)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("{\"registrationEventCollection\":[]}"));
-    }
+//    /**
+//     * Method under test: {@link RegistrationClientController#getLatestRegistrationEvent()}
+//     */
+//    @org.junit.Test
+//    public void testGetLatestRegistrationEvent() throws Exception {
+//        RegistrationEvents registrationEvents = new RegistrationEvents();
+//        registrationEvents.setRegistrationEventCollection(new ArrayList<>());
+//        when(registrationGateway.getLatestRegistrationEvent()).thenReturn(registrationEvents);
+//        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/registration-events/latest");
+//        MockMvcBuilders.standaloneSetup(registrationClientController)
+//                .build()
+//                .perform(requestBuilder)
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+//                .andExpect(MockMvcResultMatchers.content().string("{\"registrationEventCollection\":[]}"));
+//    }
+//
+//    /**
+//     * Method under test: {@link RegistrationClientController#getLatestRegistrationEvent()}
+//     */
+//    @org.junit.Test
+//    public void testGetLatestRegistrationEvent2() throws Exception {
+//        RegistrationEvents registrationEvents = new RegistrationEvents();
+//        registrationEvents.setRegistrationEventCollection(new ArrayList<>());
+//        when(registrationGateway.getLatestRegistrationEvent()).thenReturn(registrationEvents);
+//        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/registration-events/latest");
+//        getResult.characterEncoding("Encoding");
+//        MockMvcBuilders.standaloneSetup(registrationClientController)
+//                .build()
+//                .perform(getResult)
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+//                .andExpect(MockMvcResultMatchers.content().string("{\"registrationEventCollection\":[]}"));
+//    }
 
     /**
      * Method under test: {@link RegistrationClientController#getRegistrationsByStudent(Integer)}

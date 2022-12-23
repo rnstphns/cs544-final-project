@@ -20,9 +20,10 @@ public class RegistrationGateway {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public RegistrationEvents getLatestRegistrationEvent(){
-        log.info("Sending GET to "+backendUrl+"/registration-events/latest");
-        RegistrationEvents registrationEvents = restTemplate.getForObject(backendUrl+"/registration-events/latest", RegistrationEvents.class);
+    public RegistrationEvents getLatestRegistrationEvent(Integer studentId){
+        String url = backendUrl+"/registration-events/latest/"+studentId;
+        log.info("Sending GET to "+url);
+        RegistrationEvents registrationEvents = restTemplate.getForObject(url, RegistrationEvents.class);
         return registrationEvents;
     }
     public ResponseEntity<?> sendRegistrationRequest(@RequestBody List<RegistrationRequest> registrationRequest){

@@ -18,9 +18,9 @@ public class RegistrationClientController {
     private RegistrationGateway registrationGateway;
 
     //Student access:
-    @GetMapping("/registration-events/latest")
-    public ResponseEntity<?> getLatestRegistrationEvent(){
-       RegistrationEvents registrationEvents = registrationGateway.getLatestRegistrationEvent();
+    @GetMapping("/registration-events/latest/{studentId}")
+    public ResponseEntity<?> getLatestRegistrationEvent(@PathVariable Integer studentId){
+       RegistrationEvents registrationEvents = registrationGateway.getLatestRegistrationEvent(studentId);
        return new ResponseEntity<RegistrationEvents>(registrationEvents, HttpStatus.OK);
     }
     @PostMapping("/registration-events/request/{studentId}")
