@@ -80,7 +80,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
     @Override
     public RegistrationEvent latest() {
-        LocalDate localDateNow = LocalDate.now();
+      // LocalDate localDateNow = LocalDate.now();
         List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
         RegistrationEvent returnEvent = new RegistrationEvent();
         try {
@@ -88,11 +88,15 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         } catch (IndexOutOfBoundsException e) {
             log.error("No events in the database");
         }
+
+        // mask the list of students
         Collection<RegistrationGroup> groups = returnEvent.getRegistrationGroups();
         for (RegistrationGroup g : groups) {
+            //g.getStudents(); this would return the actual student list
             g.setStudents(new ArrayList<Student>());
         }
-        returnEvent.setRegistrationGroups(groups);
+//
+//        returnEvent.setRegistrationGroups(groups);
         return returnEvent;
     }
 

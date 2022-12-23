@@ -24,11 +24,11 @@ public class EmailKafkaReceiver {
         message.setTo(emailTemplate.getToAddress());
         message.setSubject(emailTemplate.getTitle());
         message.setText(emailTemplate.getMessage());
-        Properties props = System.getProperties();
-
-        String smtpHostServer = "smtp.compro.edu";
-        props.put("mail.smtp.host", smtpHostServer);
-        Session session = Session.getInstance(props, null);
+//        Properties props = System.getProperties();
+//
+//        String smtpHostServer = "smtp.compro.edu";
+//        props.put("mail.smtp.host", smtpHostServer);
+//        Session session = Session.getInstance(props, null);
 
         javaMailSender.send(message);
         System.out.println(emailTemplate);
