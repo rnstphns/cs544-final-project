@@ -128,6 +128,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
                 }
                 Collection<Student> allStudents = r.getStudents();
                 for(Student s : allStudents){
+                    log.info("Sending Confirmation Email to "+s.getEmail());
 //                    emailKafkaSender.send(s);
                 }
             }
