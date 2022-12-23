@@ -63,12 +63,13 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
 
     @Override
     public void deleteRegistrationEvent(Long id) {
+
         registrationEventRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public RegistrationEvent updateWindow(Long id, LocalDate start, LocalDate end) {
+    public RegistrationEvent updateEvent(Long id, LocalDate start, LocalDate end) {
         Optional<RegistrationEvent> registrationEventOptional = registrationEventRepository.findById(id);
         if(registrationEventOptional.isPresent()) {
             RegistrationEvent registrationEvent = registrationEventOptional.get();
@@ -80,8 +81,9 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         else return null;
     }
     @Override
-    public RegistrationEvent latest(Integer studentId) {
+    public RegistrationEvent readEvent(Integer studentId) {
         LocalDate localDateNow = LocalDate.now();
+
         List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
         RegistrationEvent returnEvent = new RegistrationEvent();
         try {
@@ -101,6 +103,20 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
             g.setStudents(new ArrayList<Student>());
         }
         returnEvent.setRegistrationGroups(returnGroups);
+        return returnEvent;
+    }
+
+    @Override
+    public RegistrationEvent latest() {
+        LocalDate localDateNow = LocalDate.now();
+
+        List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
+        RegistrationEvent returnEvent = new RegistrationEvent();
+        try {
+            returnEvent = registrationEventList.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            log.error("No events in the database");
+        }
         return returnEvent;
     }
 

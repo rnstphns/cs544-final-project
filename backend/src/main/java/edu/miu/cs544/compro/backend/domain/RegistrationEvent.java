@@ -17,6 +17,6 @@ public class RegistrationEvent implements Serializable {
     private long id;
     private LocalDate startDate;
     private LocalDate endDate;
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(cascade= CascadeType.PERSIST)
     private Collection<RegistrationGroup> registrationGroups;
 }

@@ -16,9 +16,11 @@ public interface RegistrationEventService {
     public Collection<RegistrationEvent> getRegistrationEvents();
     public RegistrationEvent createRegistrationEvent(RegistrationEvent registrationEvent) throws DatabaseException;
     public void deleteRegistrationEvent(Long id);
-    public RegistrationEvent updateWindow(Long id, LocalDate start, LocalDate end);
+    public RegistrationEvent updateEvent(Long id, LocalDate start, LocalDate end);
 
-    RegistrationEvent latest(Integer studentId);
+    RegistrationEvent readEvent(Integer studentId);
+
+    RegistrationEvent latest();
 
     public boolean processEvent(Long id);
 

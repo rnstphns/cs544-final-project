@@ -267,7 +267,7 @@ public class RegistrationEventServiceImplTest {
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#updateWindow(Long, LocalDate, LocalDate)}
+     * Method under test: {@link RegistrationEventServiceImpl#updateEvent(Long, LocalDate, LocalDate)}
      */
     @Test
     public void testUpdateWindow() {
@@ -285,7 +285,7 @@ public class RegistrationEventServiceImplTest {
         registrationEvent1.setStartDate(LocalDate.ofEpochDay(1L));
         when(registrationEventRepository.save((RegistrationEvent) any())).thenReturn(registrationEvent1);
         when(registrationEventRepository.findById((Long) any())).thenReturn(ofResult);
-        RegistrationEvent actualUpdateWindowResult = registrationEventServiceImpl.updateWindow(123L,
+        RegistrationEvent actualUpdateWindowResult = registrationEventServiceImpl.updateEvent(123L,
                 LocalDate.ofEpochDay(1L), LocalDate.ofEpochDay(1L));
         assertSame(registrationEvent, actualUpdateWindowResult);
         assertEquals("1970-01-02", actualUpdateWindowResult.getEndDate().toString());
@@ -295,7 +295,7 @@ public class RegistrationEventServiceImplTest {
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#updateWindow(Long, LocalDate, LocalDate)}
+     * Method under test: {@link RegistrationEventServiceImpl#updateEvent(Long, LocalDate, LocalDate)}
      */
     @Test
     @Ignore("TODO: Complete this test")
@@ -316,11 +316,11 @@ public class RegistrationEventServiceImplTest {
         Optional<RegistrationEvent> ofResult = Optional.of(registrationEvent);
         when(registrationEventRepository.save((RegistrationEvent) any())).thenThrow(new IndexOutOfBoundsException());
         when(registrationEventRepository.findById((Long) any())).thenReturn(ofResult);
-        registrationEventServiceImpl.updateWindow(123L, LocalDate.ofEpochDay(1L), LocalDate.ofEpochDay(1L));
+        registrationEventServiceImpl.updateEvent(123L, LocalDate.ofEpochDay(1L), LocalDate.ofEpochDay(1L));
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#updateWindow(Long, LocalDate, LocalDate)}
+     * Method under test: {@link RegistrationEventServiceImpl#updateEvent(Long, LocalDate, LocalDate)}
      */
     @Test
     public void testUpdateWindow3() {
@@ -331,12 +331,12 @@ public class RegistrationEventServiceImplTest {
         registrationEvent.setStartDate(LocalDate.ofEpochDay(1L));
         when(registrationEventRepository.save((RegistrationEvent) any())).thenReturn(registrationEvent);
         when(registrationEventRepository.findById((Long) any())).thenReturn(Optional.empty());
-        assertNull(registrationEventServiceImpl.updateWindow(123L, LocalDate.ofEpochDay(1L), LocalDate.ofEpochDay(1L)));
+        assertNull(registrationEventServiceImpl.updateEvent(123L, LocalDate.ofEpochDay(1L), LocalDate.ofEpochDay(1L)));
         verify(registrationEventRepository).findById((Long) any());
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     @Ignore("TODO: Complete this test")
@@ -350,11 +350,11 @@ public class RegistrationEventServiceImplTest {
         //   See https://diff.blue/R013 to resolve this issue.
 
         when(registrationEventRepository.findAll((Sort) any())).thenReturn(new ArrayList<>());
-        registrationEventServiceImpl.latest(123);
+        registrationEventServiceImpl.readEvent(123);
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     public void testLatest2() {
@@ -368,14 +368,14 @@ public class RegistrationEventServiceImplTest {
         ArrayList<RegistrationEvent> registrationEventList = new ArrayList<>();
         registrationEventList.add(registrationEvent);
         when(registrationEventRepository.findAll((Sort) any())).thenReturn(registrationEventList);
-        RegistrationEvent actualLatestResult = registrationEventServiceImpl.latest(123);
+        RegistrationEvent actualLatestResult = registrationEventServiceImpl.readEvent(123);
         assertSame(registrationEvent, actualLatestResult);
         assertEquals(registrationGroupList, actualLatestResult.getRegistrationGroups());
         verify(registrationEventRepository).findAll((Sort) any());
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     @Ignore("TODO: Complete this test")
@@ -389,11 +389,11 @@ public class RegistrationEventServiceImplTest {
         //   See https://diff.blue/R013 to resolve this issue.
 
         when(registrationEventRepository.findAll((Sort) any())).thenThrow(new IndexOutOfBoundsException());
-        registrationEventServiceImpl.latest(123);
+        registrationEventServiceImpl.readEvent(123);
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     public void testLatest4() {
@@ -415,14 +415,14 @@ public class RegistrationEventServiceImplTest {
         ArrayList<RegistrationEvent> registrationEventList = new ArrayList<>();
         registrationEventList.add(registrationEvent);
         when(registrationEventRepository.findAll((Sort) any())).thenReturn(registrationEventList);
-        RegistrationEvent actualLatestResult = registrationEventServiceImpl.latest(123);
+        RegistrationEvent actualLatestResult = registrationEventServiceImpl.readEvent(123);
         assertSame(registrationEvent, actualLatestResult);
         assertEquals(courseOfferingList, actualLatestResult.getRegistrationGroups());
         verify(registrationEventRepository).findAll((Sort) any());
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     public void testLatest5() {
@@ -447,14 +447,14 @@ public class RegistrationEventServiceImplTest {
         ArrayList<RegistrationEvent> registrationEventList = new ArrayList<>();
         registrationEventList.add(registrationEvent);
         when(registrationEventRepository.findAll((Sort) any())).thenReturn(registrationEventList);
-        RegistrationEvent actualLatestResult = registrationEventServiceImpl.latest(123);
+        RegistrationEvent actualLatestResult = registrationEventServiceImpl.readEvent(123);
         assertSame(registrationEvent, actualLatestResult);
         assertEquals(courseOfferingList, actualLatestResult.getRegistrationGroups());
         verify(registrationEventRepository).findAll((Sort) any());
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     public void testLatest6() {
@@ -478,7 +478,7 @@ public class RegistrationEventServiceImplTest {
         ArrayList<RegistrationEvent> registrationEventList = new ArrayList<>();
         registrationEventList.add(registrationEvent);
         when(registrationEventRepository.findAll((Sort) any())).thenReturn(registrationEventList);
-        RegistrationEvent actualLatestResult = registrationEventServiceImpl.latest(123);
+        RegistrationEvent actualLatestResult = registrationEventServiceImpl.readEvent(123);
         assertSame(registrationEvent, actualLatestResult);
         Collection<RegistrationGroup> registrationGroups = actualLatestResult.getRegistrationGroups();
         assertEquals(registrationGroupList, registrationGroups);
@@ -490,7 +490,7 @@ public class RegistrationEventServiceImplTest {
     }
 
     /**
-     * Method under test: {@link RegistrationEventServiceImpl#latest(Integer)}
+     * Method under test: {@link RegistrationEventServiceImpl#readEvent(Integer)}
      */
     @Test
     @Ignore("TODO: Complete this test")
@@ -523,7 +523,7 @@ public class RegistrationEventServiceImplTest {
         ArrayList<RegistrationEvent> registrationEventList = new ArrayList<>();
         registrationEventList.add(registrationEvent);
         when(registrationEventRepository.findAll((Sort) any())).thenReturn(registrationEventList);
-        registrationEventServiceImpl.latest(123);
+        registrationEventServiceImpl.readEvent(123);
     }
 
     /**

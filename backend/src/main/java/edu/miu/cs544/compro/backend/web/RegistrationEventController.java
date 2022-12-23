@@ -13,6 +13,7 @@ import edu.miu.cs544.compro.backend.service.RegistrationEventService;
 import edu.miu.cs544.compro.backend.service.RegistrationGroupService;
 import edu.miu.cs544.compro.backend.service.RegistrationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,29 +38,16 @@ public class RegistrationEventController {
     private RegistrationRequestService requestService;
 
 
-    @GetMapping("/latest/{studentId}")
+    @GetMapping("/latest")
+    public ResponseEntity<RegistrationEvent> getAllCourseOfferings(){
+        return ResponseEntity.ok(registrationEventService.latest());
+    }
+    @GetMapping("/readevent/{studentId}")
     public ResponseEntity<RegistrationEvent> getAllCourseOfferings(@PathVariable Integer studentId){
-        return ResponseEntity.ok(registrationEventService.latest(studentId));
+        return ResponseEntity.ok(registrationEventService.readEvent(studentId));
     }
 
-    @PostMapping("/request/{studentId}")
-    public ResponseEntity<?> saveRequest(@RequestBody List<RegistrationRequest> requests, @PathVariable Integer studentId) {
-        try{
-            boolean success = requestService.createRegistrationRequest(requests, studentId);
-            if (success) {
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            }
-            else return new ResponseEntity<>("Registration request failed to save.", HttpStatus.BAD_REQUEST);
-        }catch(EventNotOpenException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
-        }
-        catch(ObjectNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
-        } catch (DatabaseException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
-        }
 
-    }
 
     @PostMapping("/create")
     public ResponseEntity<?> createEvent(@RequestBody RegistrationEvent registrationEvent){
@@ -80,9 +68,9 @@ public class RegistrationEventController {
     }
 
     @PutMapping("/update/{eventId}/{startDate}/{endDate}")
-    public ResponseEntity<RegistrationEvent> updateEvent(@PathVariable long eventId, @PathVariable LocalDate startDate, @PathVariable LocalDate endDate){
+    public ResponseEntity<RegistrationEvent> updateEvent(@PathVariable long eventId, @PathVariable("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @PathVariable ("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate){
 
-        return ResponseEntity.ok(registrationEventService.updateWindow(eventId,startDate,endDate));
+        return ResponseEntity.ok(registrationEventService.updateEvent(eventId,startDate,endDate));
     }
 
     @GetMapping("/get")
@@ -111,6 +99,25 @@ public class RegistrationEventController {
             return ResponseEntity.ok(registrationGroupService.create(registrationGroup));
         }catch(DatabaseException e){
             return new ResponseEntity<>("Error saving CourseOffering:"+e.getMessage(), HttpStatus.SEE_OTHER);
+        }
+
+    }
+
+    @PostMapping("/request/{studentId}")
+    public ResponseEntity<?> saveRequest(@RequestBody List<RegistrationRequest> requests, @PathVariable Integer studentId) {
+        try{
+            boolean success = requestService.createRegistrationRequest(requests, studentId);
+            if (success) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            else return new ResponseEntity<>("Registration request failed to save.", HttpStatus.BAD_REQUEST);
+        }catch(EventNotOpenException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        }
+        catch(ObjectNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }
 
     }

@@ -144,7 +144,7 @@ POST localhost:8081/registration-events/course-offering
 }
 
 -------------------------------------------------
-POST localhost:8081/registration-events/registration-group
+    POST localhost:8081/registration-events/registration-group
 
 {
     "students": [
