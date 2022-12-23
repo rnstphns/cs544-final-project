@@ -1,14 +1,8 @@
 package edu.miu.cs544.compro.backend;
 
-import edu.miu.cs544.compro.backend.domain.Address;
-import edu.miu.cs544.compro.backend.domain.Student;
-import edu.miu.cs544.compro.backend.kafka.EmailKafkaSender;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.kafka.annotation.EnableKafka;
-
 @SpringBootApplication
 //@EnableKafka
 public class BackendApplication implements CommandLineRunner {

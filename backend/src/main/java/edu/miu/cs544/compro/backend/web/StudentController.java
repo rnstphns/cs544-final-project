@@ -2,7 +2,6 @@ package edu.miu.cs544.compro.backend.web;
 
 
 import edu.miu.cs544.compro.backend.domain.Registration;
-import edu.miu.cs544.compro.backend.domain.RegistrationEvent;
 import edu.miu.cs544.compro.backend.domain.Student;
 import edu.miu.cs544.compro.backend.exceptions.DatabaseException;
 import edu.miu.cs544.compro.backend.service.RegistrationEventService;
@@ -27,10 +26,7 @@ private StudentService studentServiceImpl;
     @Autowired
     private RegistrationService registrationService;
 
-    @GetMapping("/registration-events/latest")
-    public ResponseEntity<RegistrationEvent> getAllCourseOfferings(){
-        return ResponseEntity.ok(registrationEventService.latest());
-    }
+
 
 @PostMapping("/addstudent")
     public ResponseEntity<?> addstudent(@RequestBody Student student){

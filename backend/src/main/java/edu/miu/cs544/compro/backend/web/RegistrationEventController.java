@@ -36,9 +36,10 @@ public class RegistrationEventController {
     @Autowired
     private RegistrationRequestService requestService;
 
-    @GetMapping("/latest")
-    public ResponseEntity<?> getLatest(){
-        return new ResponseEntity<>(registrationEventService.latest(), HttpStatus.OK);
+
+    @GetMapping("/latest/{studentId}")
+    public ResponseEntity<RegistrationEvent> getAllCourseOfferings(@PathVariable Integer studentId){
+        return ResponseEntity.ok(registrationEventService.latest(studentId));
     }
 
     @PostMapping("/request/{studentId}")

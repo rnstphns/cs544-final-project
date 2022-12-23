@@ -33,17 +33,7 @@ public class StudentControllerTest {
     @MockBean
     private StudentService studentService;
 
-    /**
-     * Method under test: {@link StudentController#getAllCourseOfferings()}
-     */
-    @Test
-    @Ignore("TODO: Complete this test")
-    public void testGetAllCourseOfferings2() {
-        // TODO: Complete this test.
-        //   Diffblue AI was unable to find a test
 
-        (new StudentController()).getAllCourseOfferings();
-    }
 
     /**
      * Method under test: {@link StudentController#addstudent(Student)}

@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@Transactional
 public class RegistrationEventServiceImpl implements RegistrationEventService {
     @Autowired
     private RegistrationGroupService registrationGroupService;
@@ -53,6 +52,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
 
     @Override
+    @Transactional
     public RegistrationEvent createRegistrationEvent(RegistrationEvent registrationEvent) throws DatabaseException {
         Collection<RegistrationGroup> groups = registrationEvent.getRegistrationGroups();
         for (RegistrationGroup g : groups) {
@@ -67,6 +67,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
     }
 
     @Override
+    @Transactional
     public RegistrationEvent updateWindow(Long id, LocalDate start, LocalDate end) {
         Optional<RegistrationEvent> registrationEventOptional = registrationEventRepository.findById(id);
         if(registrationEventOptional.isPresent()) {
@@ -79,7 +80,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         else return null;
     }
     @Override
-    public RegistrationEvent latest() {
+    public RegistrationEvent latest(Integer studentId) {
         LocalDate localDateNow = LocalDate.now();
         List<RegistrationEvent> registrationEventList = registrationEventRepository.findAll(Sort.by(Sort.Direction.DESC, "endDate"));
         RegistrationEvent returnEvent = new RegistrationEvent();
@@ -89,14 +90,22 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
             log.error("No events in the database");
         }
         Collection<RegistrationGroup> groups = returnEvent.getRegistrationGroups();
+        Collection<RegistrationGroup> returnGroups = new ArrayList<>();
         for (RegistrationGroup g : groups) {
+            Collection<Student> allStudents = g.getStudents();
+            for(Student s:allStudents){
+                if(s.getStudentId().equals(studentId)){
+                    returnGroups.add(g);
+                }
+            }
             g.setStudents(new ArrayList<Student>());
         }
-        returnEvent.setRegistrationGroups(groups);
+        returnEvent.setRegistrationGroups(returnGroups);
         return returnEvent;
     }
 
     @Override
+    @Transactional
     public boolean processEvent(Long id) {
         boolean processedSuccessfully = false;
         try {
@@ -119,7 +128,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
                 }
                 Collection<Student> allStudents = r.getStudents();
                 for(Student s : allStudents){
-                    emailKafkaSender.send(s);
+//                    emailKafkaSender.send(s);
                 }
             }
             processedSuccessfully = true;
