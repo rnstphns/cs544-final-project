@@ -20,8 +20,7 @@ public class CourseOffering {
     private Long id;
     @Column(length = 30, nullable = false, unique = true)
     private String code;
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(fetch=FetchType.EAGER)
     private AcademicBlock academicBlock;
     @OneToOne
     private Course course;
