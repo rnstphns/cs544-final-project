@@ -1,15 +1,10 @@
-package edu.miu.compro.cs544.CS544FinalProjectGroup8EmailService.kafka;
+package edu.miu.cs544.compro.backend.kafka;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-
-import javax.mail.Session;
-import java.util.Properties;
 
 
 @Service

@@ -1,4 +1,4 @@
-package edu.miu.compro.cs544.CS544FinalProjectGroup8EmailService.kafka;
+package edu.miu.cs544.compro.backend.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
