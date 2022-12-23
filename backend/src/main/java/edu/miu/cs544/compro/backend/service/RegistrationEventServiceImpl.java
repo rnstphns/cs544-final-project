@@ -142,7 +142,12 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
                     co.setAvailableSeats(seats);
                     courseOfferingService.update(co.getId(), co);
                 } else throw new DatabaseException("Course Offering" + co.getCode() + " is full!");
-                registration.getCourseList().add(co);
+                if(registration.getCourseList() == null){
+                    ArrayList<CourseOffering> newCourseList = new ArrayList();
+                    registration.setCourseList(newCourseList);
+                }
+                List<CourseOffering> courseList = registration.getCourseList();
+                courseList.add(co);
                 registrationService.createRegistration(registration);
                 return registration;
             } else {
